@@ -16,9 +16,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\version.json = ..\version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rixian.Extensions.AspNetCore", "Rixian.Extensions.AspNetCore\Rixian.Extensions.AspNetCore.csproj", "{CD08628B-5864-4412-8A16-6D204D194CF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore", "Rixian.Extensions.AspNetCore\Rixian.Extensions.AspNetCore.csproj", "{CD08628B-5864-4412-8A16-6D204D194CF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rixian.Extensions.AspNetCore.Tests", "Rixian.Extensions.AspNetCore.Tests\Rixian.Extensions.AspNetCore.Tests.csproj", "{A3C26E14-C810-4285-9F90-52306DD1A39D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Tests", "Rixian.Extensions.AspNetCore.Tests\Rixian.Extensions.AspNetCore.Tests.csproj", "{A3C26E14-C810-4285-9F90-52306DD1A39D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.OpenIdConnect", "Rixian.Extensions.AspNetCore.OpenIdConnect\Rixian.Extensions.AspNetCore.OpenIdConnect.csproj", "{ABF924F9-06D9-4833-B665-9222AB8D5DB5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Sample.Api", "Rixian.Extensions.AspNetCore.Sample.Api\Rixian.Extensions.AspNetCore.Sample.Api.csproj", "{44AA9AC3-4494-4E43-90B8-F3436D344A84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rixian.Extensions.AspNetCore.StackExchangeRedis", "Rixian.Extensions.AspNetCore.StackExchangeRedis\Rixian.Extensions.AspNetCore.StackExchangeRedis.csproj", "{4039968D-D554-4FFC-A36E-8D9638863E92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rixian.Extensions.AspNetCore.DataProtection", "Rixian.Extensions.AspNetCore.DataProtection\Rixian.Extensions.AspNetCore.DataProtection.csproj", "{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rixian.Extensions.AspNetCore.Api", "Rixian.Extensions.AspNetCore.Api\Rixian.Extensions.AspNetCore.Api.csproj", "{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +44,26 @@ Global
 		{A3C26E14-C810-4285-9F90-52306DD1A39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3C26E14-C810-4285-9F90-52306DD1A39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3C26E14-C810-4285-9F90-52306DD1A39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABF924F9-06D9-4833-B665-9222AB8D5DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF924F9-06D9-4833-B665-9222AB8D5DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABF924F9-06D9-4833-B665-9222AB8D5DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF924F9-06D9-4833-B665-9222AB8D5DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AA9AC3-4494-4E43-90B8-F3436D344A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AA9AC3-4494-4E43-90B8-F3436D344A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AA9AC3-4494-4E43-90B8-F3436D344A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AA9AC3-4494-4E43-90B8-F3436D344A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4039968D-D554-4FFC-A36E-8D9638863E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4039968D-D554-4FFC-A36E-8D9638863E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4039968D-D554-4FFC-A36E-8D9638863E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4039968D-D554-4FFC-A36E-8D9638863E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
