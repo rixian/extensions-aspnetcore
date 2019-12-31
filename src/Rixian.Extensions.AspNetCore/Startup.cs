@@ -10,6 +10,9 @@ namespace Rixian.Extensions.AspNetCore
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
 
+    /// <summary>
+    /// Additional basic startup services.
+    /// </summary>
     public class Startup : IHostingStartup
     {
         /// <inheritdoc/>

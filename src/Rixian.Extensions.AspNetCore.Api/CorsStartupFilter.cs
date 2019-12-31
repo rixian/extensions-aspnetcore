@@ -7,8 +7,12 @@ namespace Rixian.Extensions.AspNetCore.Api
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
 
+    /// <summary>
+    /// Startup Filter for adding CORS to the host.
+    /// </summary>
     public class CorsStartupFilter : IStartupFilter
     {
+        /// <inheritdoc/>
         public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
         {
             return app =>

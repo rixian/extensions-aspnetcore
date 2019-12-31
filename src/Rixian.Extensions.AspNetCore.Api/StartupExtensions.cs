@@ -9,8 +9,16 @@ namespace Microsoft.Extensions.DependencyInjection
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Versioning;
 
+    /// <summary>
+    /// Extensions for registering api methods with the dependency injection container.
+    /// </summary>
     public static class StartupExtensions
     {
+        /// <summary>
+        /// Adds the Api Explorer to the DI container.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddApiExplorerServices(this IServiceCollection services)
         {
             // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
@@ -29,6 +37,11 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        /// Adds the Mvc and Json services to the DI container.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddMvcServices(this IServiceCollection services)
         {
             services
@@ -40,20 +53,14 @@ namespace Microsoft.Extensions.DependencyInjection
                     o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
-            //JsonConvert.DefaultSettings = () =>
-            //{
-            //    var settings = new JsonSerializerSettings
-            //    {
-            //        Formatting = Formatting.None,
-            //        ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            //    };
-            //    settings.Converters.Add(new StringEnumConverter(new DefaultNamingStrategy()));
-            //    return settings;
-            //};
-
             return services;
         }
 
+        /// <summary>
+        /// Adds the CORS to the DI container.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddCorsServices(this IServiceCollection services)
         {
             services.AddCors(options =>
@@ -69,6 +76,11 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        /// Adds the Authorization services to the DI container.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddAuthorizationServices(this IServiceCollection services)
         {
             services.AddAuthorization();
@@ -76,6 +88,12 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        /// Adds the Api Versioning to the DI container.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="defaultVersion">The default version to use.</param>
+        /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddApiVersioningServices(this IServiceCollection services, DateTime? defaultVersion = null)
         {
             services.AddApiVersioning(options =>

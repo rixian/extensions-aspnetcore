@@ -3,14 +3,29 @@
 
 namespace Rixian.Extensions.AspNetCore.DataProtection
 {
+    /// <summary>
+    /// Configuration class for the DataProtection Key Ring.
+    /// </summary>
     public class KeyRingOptions
     {
-        public string KeyName { get; set; }
+        /// <summary>
+        /// Gets or sets the key name.
+        /// </summary>
+        public string? KeyName { get; set; }
 
-        public string KeyIdentifier { get; set; }
+        /// <summary>
+        /// Gets or sets the key identifier.
+        /// </summary>
+        public string? KeyIdentifier { get; set; }
 
-        public string ClientId { get; set; }
+        /// <summary>
+        /// Gets or sets the client Id used to access KeyVault.
+        /// </summary>
+        public string? ClientId { get; set; }
 
-        public string ClientSecret { get; set; }
+        /// <summary>
+        /// Gets or sets the client secret used to access KeyVault.
+        /// </summary>
+        public string? ClientSecret { get; set; }
     }
 }

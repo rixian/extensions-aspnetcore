@@ -6,8 +6,16 @@ namespace Microsoft.Extensions.Hosting
     using System;
     using Microsoft.AspNetCore.Hosting;
 
+    /// <summary>
+    /// Extensions for adding Redis services.
+    /// </summary>
     public static class StackExchangeRedisHostingExtensions
     {
+        /// <summary>
+        /// Adds Redis services to the application.
+        /// </summary>
+        /// <param name="webBuilder">The WebHostBuilder.</param>
+        /// <returns>The updated WebHostBuilder.</returns>
         public static IWebHostBuilder UseStackExchangeRedis(this IWebHostBuilder webBuilder)
         {
             if (webBuilder is null)

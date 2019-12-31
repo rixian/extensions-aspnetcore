@@ -6,8 +6,16 @@ namespace Microsoft.Extensions.Hosting
     using System;
     using Microsoft.AspNetCore.Hosting;
 
+    /// <summary>
+    /// Extensions for adding Data Protection services.
+    /// </summary>
     public static class DataProtectionHostingExtensions
     {
+        /// <summary>
+        /// Adds the Data Protection services to the application.
+        /// </summary>
+        /// <param name="webBuilder">The WebHostBuilder.</param>
+        /// <returns>The updated WebHostBuilder.</returns>
         public static IWebHostBuilder UseDataProtection(this IWebHostBuilder webBuilder)
         {
             if (webBuilder is null)

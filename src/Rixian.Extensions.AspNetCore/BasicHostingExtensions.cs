@@ -6,8 +6,16 @@ namespace Microsoft.Extensions.Hosting
     using System;
     using Microsoft.AspNetCore.Hosting;
 
+    /// <summary>
+    /// Extensions for adding basic services.
+    /// </summary>
     public static class BasicHostingExtensions
     {
+        /// <summary>
+        /// Adds the basic services to the application.
+        /// </summary>
+        /// <param name="webBuilder">The WebHostBuilder.</param>
+        /// <returns>The updated WebHostBuilder.</returns>
         public static IWebHostBuilder UseBasicExtensions(this IWebHostBuilder webBuilder)
         {
             if (webBuilder is null)

@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
 {
+    /// <summary>
+    /// Additional Redis startup services.
+    /// </summary>
     public class Startup : IHostingStartup
     {
         /// <inheritdoc/>

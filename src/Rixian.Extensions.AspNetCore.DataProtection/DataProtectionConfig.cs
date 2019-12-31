@@ -3,12 +3,24 @@
 
 namespace Rixian.Extensions.AspNetCore.DataProtection
 {
+    /// <summary>
+    /// Configuration class for DataProtection.
+    /// </summary>
     public class DataProtectionConfig
     {
-        public string ApplicationDiscriminator { get; set; }
+        /// <summary>
+        /// Gets or sets the application discriminator.
+        /// </summary>
+        public string? ApplicationDiscriminator { get; set; }
 
-        public string AzureStorage { get; set; }
+        /// <summary>
+        /// Gets or sets the Azure Storage connection string.
+        /// </summary>
+        public string? AzureStorage { get; set; }
 
-        public KeyRingOptions KeyRing { get; set; }
+        /// <summary>
+        /// Gets or sets the data protection key ring values.
+        /// </summary>
+        public KeyRingOptions? KeyRing { get; set; }
     }
 }

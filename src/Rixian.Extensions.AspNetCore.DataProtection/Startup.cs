@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Rixian.Extensions.AspNetCore.DataProtection
 {
+    /// <summary>
+    /// Additional Data Protection startup services.
+    /// </summary>
     public class Startup : IHostingStartup
     {
         /// <inheritdoc/>

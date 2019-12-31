@@ -3,8 +3,14 @@
 
 namespace Rixian.Extensions.AspNetCore.Api
 {
-    internal class Constants
+    /// <summary>
+    /// Defines constant values.
+    /// </summary>
+    internal static class Constants
     {
+        /// <summary>
+        /// The name of the CORS policy.
+        /// </summary>
         public const string CorsAllowAllOrigins = "AllowAllOrigins";
     }
 }

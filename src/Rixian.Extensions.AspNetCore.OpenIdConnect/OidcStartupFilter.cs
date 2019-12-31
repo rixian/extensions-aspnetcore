@@ -9,6 +9,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 
     public class OidcStartupFilter : IStartupFilter
     {
+        /// <inheritdoc/>
         public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
         {
             return app =>

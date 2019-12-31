@@ -14,7 +14,9 @@ using Microsoft.IdentityModel.Logging;
 
 namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 {
-
+    /// <summary>
+    /// Additional OpenID Connect startup services.
+    /// </summary>
     public class Startup : IHostingStartup
     {
         /// <inheritdoc/>

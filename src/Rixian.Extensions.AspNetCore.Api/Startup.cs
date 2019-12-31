@@ -11,6 +11,9 @@ namespace Rixian.Extensions.AspNetCore.Api
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
+    /// <summary>
+    /// Additional api startup services.
+    /// </summary>
     public class Startup : IHostingStartup
     {
         /// <inheritdoc/>

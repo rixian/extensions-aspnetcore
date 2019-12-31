@@ -13,52 +13,49 @@ namespace Rixian.Extensions.AspNetCore
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
 
+    /// <summary>
+    /// Startup Filter for adding health endpoints to the host.
+    /// </summary>
     public class HealthStartupFilter : IStartupFilter
     {
+        /// <inheritdoc/>
         public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
         {
             return app =>
             {
-                UseHealthCheckServices(app);
+                _ = app
+                   .UseHealthChecks("/self", new HealthCheckOptions
+                   {
+                       Predicate = r => r.Name.Contains("self", StringComparison.OrdinalIgnoreCase),
+                       ResponseWriter = async (context, report) =>
+                       {
+                           var result = JsonSerializer.Serialize(
+                               new
+                               {
+                                   status = report.Status.ToString(),
+                                   errors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) }),
+                               });
+                           context.Response.ContentType = MediaTypeNames.Application.Json;
+                           await context.Response.WriteAsync(result).ConfigureAwait(false);
+                       },
+                   })
+                   .UseHealthChecks("/ready", new HealthCheckOptions
+                   {
+                       Predicate = r => r.Tags.Contains("services"),
+                       ResponseWriter = async (context, report) =>
+                       {
+                           var result = JsonSerializer.Serialize(
+                               new
+                               {
+                                   status = report.Status.ToString(),
+                                   errors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) }),
+                               });
+                           context.Response.ContentType = MediaTypeNames.Application.Json;
+                           await context.Response.WriteAsync(result).ConfigureAwait(false);
+                       },
+                   });
                 next(app);
             };
-        }
-
-        public static IApplicationBuilder UseHealthCheckServices(IApplicationBuilder app)
-        {
-            _ = app
-                .UseHealthChecks("/self", new HealthCheckOptions
-                {
-                    Predicate = r => r.Name.Contains("self", StringComparison.OrdinalIgnoreCase),
-                    ResponseWriter = async (context, report) =>
-                    {
-                        var result = JsonSerializer.Serialize(
-                            new
-                            {
-                                status = report.Status.ToString(),
-                                errors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) }),
-                            });
-                        context.Response.ContentType = MediaTypeNames.Application.Json;
-                        await context.Response.WriteAsync(result).ConfigureAwait(false);
-                    },
-                })
-                .UseHealthChecks("/ready", new HealthCheckOptions
-                {
-                    Predicate = r => r.Tags.Contains("services"),
-                    ResponseWriter = async (context, report) =>
-                    {
-                        var result = JsonSerializer.Serialize(
-                            new
-                            {
-                                status = report.Status.ToString(),
-                                errors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) }),
-                            });
-                        context.Response.ContentType = MediaTypeNames.Application.Json;
-                        await context.Response.WriteAsync(result).ConfigureAwait(false);
-                    },
-                });
-
-            return app;
         }
     }
 }
