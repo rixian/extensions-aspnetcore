@@ -1,7 +1,7 @@
-﻿// Copyright (c) COMPANY-PLACEHOLDER. All rights reserved.
+// Copyright (c) Rixian. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Library
+namespace Rixian.Extensions.AspNetCore
 {
     using System;
 

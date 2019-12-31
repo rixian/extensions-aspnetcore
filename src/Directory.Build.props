@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <RepoRootPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</RepoRootPath>
@@ -12,8 +12,8 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\strongname.snk</AssemblyOriginatorKeyFile>
 
-    <Company>COMPANY-PLACEHOLDER</Company>
-    <Authors>COMPANY-PLACEHOLDER</Authors>
+    <Company>Rixian</Company>
+    <Authors>Rixian</Authors>
     <Copyright>© Rixian LLC. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageIconUrl>https://storagerixiannet.blob.core.windows.net/public/nuget/icons/nuget-rixian-256.png</PackageIconUrl>

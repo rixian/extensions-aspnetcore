@@ -1,8 +1,8 @@
-﻿// Copyright (c) COMPANY-PLACEHOLDER. All rights reserved.
+// Copyright (c) Rixian. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using Library;
+using Rixian.Extensions.AspNetCore;
 using Xunit;
 using Xunit.Abstractions;
 
