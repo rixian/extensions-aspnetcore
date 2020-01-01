@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 
 [assembly: Microsoft.AspNetCore.Hosting.HostingStartup(typeof(Rixian.Extensions.AspNetCore.OpenIdConnect.Startup))]
@@ -28,29 +29,58 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
             }
 
             _ = builder
-                .ConfigureServices((ctx, services) =>
+                .ConfigureServices((context, services) =>
                 {
-                    OpenIdConnectOptions options = ctx.Configuration.GetSection("Identity").Get<OpenIdConnectOptions>();
-
-                    this.AddHealthCheckServices(services, options.Authority, options.AuthorityHealthEndpoint);
-                    services.AddTransient<IStartupFilter, OidcStartupFilter>();
-
-                    if (options.Api != null)
+                    ILogger<Startup> logger = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>().CreateLogger<Startup>();
+                    OpenIdConnectConfig? options = context.Configuration.GetSection("Identity")?.Get<OpenIdConnectConfig>();
+                    if (options == null)
                     {
-                        this.AddAuthenticationServices(services, options.Api.Name, options.Api.Secret, options.Authority, ctx.HostingEnvironment);
+                        if (context.HostingEnvironment.IsDevelopment())
+                        {
+                            // Do nothing.
+                            logger.LogWarning("[IDENTITY] No configuration section named 'Identity' found, and running in Development. Identity will not be enabled.");
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("[IDENTITY] No configuration section named 'Identity' found, and running in as non-Development. Identity configuration must be provided for non-Development applications.");
+                        }
+                    }
+                    else
+                    {
+                        Errors.Result isValid = options.CheckRequiredValues(); // Provides the required null checks.
+
+                        if (isValid.IsSuccess)
+                        {
+                            this.AddHealthCheckServices(services, options.Authority!, options.AuthorityHealthEndpoint);
+                            services.AddTransient<IStartupFilter, OidcStartupFilter>();
+
+                            if (options.Api != null)
+                            {
+                                this.AddAuthenticationServices(services, options.Api.Name!, options.Api.Secret, options.Authority!, context.HostingEnvironment);
+                            }
+                        }
+                        else if (context.HostingEnvironment.IsDevelopment())
+                        {
+                            // Do nothing.
+                            logger.LogWarning("[IDENTITY] Invalid configuration specified, and running in Development. Identity will not be enabled. {Error}", isValid.Error);
+                        }
+                        else
+                        {
+                            throw new ErrorException(isValid.Error, "Identity configuration must be provided for non-Development applications.");
+                        }
                     }
                 });
         }
 
         private void AddHealthCheckServices(IServiceCollection services, string authority, string? healthEndpoint = null)
         {
-            healthEndpoint = healthEndpoint ?? "/.well-known/openid-configuration";
+            healthEndpoint ??= "/.well-known/openid-configuration";
 
             _ = services.AddHealthChecks()
                 .AddUrlGroup(new Uri(new Uri(authority), healthEndpoint), "oidc", tags: new[] { "services" });
         }
 
-        private void AddAuthenticationServices(IServiceCollection services, string apiName, string apiSecret, string authority, IWebHostEnvironment hostEnvironment)
+        private void AddAuthenticationServices(IServiceCollection services, string apiName, string? apiSecret, string authority, IWebHostEnvironment hostEnvironment)
         {
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>

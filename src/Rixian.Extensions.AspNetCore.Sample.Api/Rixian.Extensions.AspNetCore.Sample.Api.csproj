@@ -9,5 +9,9 @@
     <ProjectReference Include="..\Rixian.Extensions.AspNetCore.Api\Rixian.Extensions.AspNetCore.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Remove="Microsoft.CodeAnalysis.FxCopAnalyzers" />
+    <PackageReference Remove="StyleCop.Analyzers" />
+  </ItemGroup>
 
 </Project>

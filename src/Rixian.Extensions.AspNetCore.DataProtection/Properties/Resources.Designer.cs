@@ -61,6 +61,15 @@ namespace Rixian.Extensions.AspNetCore.DataProtection.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to KeyRing must be provided..
+        /// </summary>
+        internal static string MissingKeyRingErrorMessage {
+            get {
+                return ResourceManager.GetString("MissingKeyRingErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A value must be provided..
         /// </summary>
         internal static string MissingValueErrorMessage {

@@ -61,6 +61,33 @@ namespace Rixian.Extensions.AspNetCore.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid configuration provided..
+        /// </summary>
+        internal static string InvalidConfigurationErrorMessage {
+            get {
+                return ResourceManager.GetString("InvalidConfigurationErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A required configuration field is empty or null..
+        /// </summary>
+        internal static string MissingRequiredConfigurationFieldErrorMessage {
+            get {
+                return ResourceManager.GetString("MissingRequiredConfigurationFieldErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A required configuration section missing..
+        /// </summary>
+        internal static string MissingRequiredConfigurationSectionErrorMessage {
+            get {
+                return ResourceManager.GetString("MissingRequiredConfigurationSectionErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to find assembly name for type..
         /// </summary>
         internal static string UnableToFindAssemblyNameErrorMessage {

@@ -7,6 +7,9 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
 
+    /// <summary>
+    /// Startup Filter for adding AuthN and AuthZ to the host.
+    /// </summary>
     public class OidcStartupFilter : IStartupFilter
     {
         /// <inheritdoc/>

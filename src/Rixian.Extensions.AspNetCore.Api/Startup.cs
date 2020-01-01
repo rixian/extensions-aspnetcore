@@ -9,6 +9,7 @@ namespace Rixian.Extensions.AspNetCore.Api
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
@@ -29,22 +30,31 @@ namespace Rixian.Extensions.AspNetCore.Api
                 {
                     ILogger<Startup> logger = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>().CreateLogger<Startup>();
 
-                    ApiConfig options = context.Configuration.GetSection("Api").Get<ApiConfig>();
-
+                    ApiConfig? options = context.Configuration.GetSection("Api")?.Get<ApiConfig>();
                     DateTime? defaultVersion = null;
-                    if (DateTime.TryParse(options?.DefaultVersion, out DateTime version))
+
+                    if (options == null)
                     {
-                        defaultVersion = version;
+                        // Do nothing.
+                        logger.LogWarning("[API] No configuration section named 'Api' found.");
                     }
+                    else
+                    {
+                        options.EnsureRequiredValues();
+                        if (DateTime.TryParse(options?.DefaultVersion, out DateTime version))
+                        {
+                            defaultVersion = version;
+                        }
 
-                    services
-                        .AddApiExplorerServices()
-                        .AddMvcServices()
-                        .AddCorsServices()
-                        .AddAuthorizationServices()
-                        .AddApiVersioningServices(defaultVersion);
+                        services
+                                .AddApiExplorerServices()
+                                .AddMvcServices()
+                                .AddCorsServices()
+                                .AddAuthorizationServices()
+                                .AddApiVersioningServices(defaultVersion);
 
-                    services.AddTransient<IStartupFilter, CorsStartupFilter>();
+                        services.AddTransient<IStartupFilter, CorsStartupFilter>();
+                    }
                 });
         }
     }

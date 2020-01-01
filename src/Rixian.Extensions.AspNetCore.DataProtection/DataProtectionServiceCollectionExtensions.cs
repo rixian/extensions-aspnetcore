@@ -85,18 +85,42 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         public static IServiceCollection AddFullDataProtection(this IServiceCollection services)
         {
             ServiceProvider svc = services.BuildServiceProvider();
-            var dpSection = svc.GetRequiredService<IConfiguration>().GetSection("DataProtection");
+            IConfigurationSection dpSection = svc.GetRequiredService<IConfiguration>().GetSection("DataProtection");
             return services.AddFullDataProtection(dpSection);
         }
 
-        public static IServiceCollection AddFullDataProtection(this IServiceCollection services, IConfiguration configuration) =>
-            services.AddFullDataProtection(configuration.Get<DataProtectionConfig>());
+        /// <summary>
+        /// Adds the full Data Protection services to the DI container.
+        /// </summary>
+        /// <param name="services">The Service Collection.</param>
+        /// <param name="configuration">The configuration options.</param>
+        /// <returns>The updated Service Collection.</returns>
+        public static IServiceCollection AddFullDataProtection(this IServiceCollection services, IConfiguration configuration)
+        {
+            if (configuration is null)
+            {
+                throw new System.ArgumentNullException(nameof(configuration));
+            }
 
+            return services.AddFullDataProtection(configuration.Get<DataProtectionConfig>());
+        }
+
+        /// <summary>
+        /// Adds the full Data Protection services to the DI container.
+        /// </summary>
+        /// <param name="services">The Service Collection.</param>
+        /// <param name="options">The configuration options.</param>
+        /// <returns>The updated Service Collection.</returns>
         public static IServiceCollection AddFullDataProtection(this IServiceCollection services, DataProtectionConfig options)
         {
             if (options == null)
             {
                 throw new System.ArgumentNullException(nameof(options));
+            }
+
+            if (options.KeyRing == null)
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(options), Properties.Resources.MissingKeyRingErrorMessage);
             }
 
             services.AddFullDataProtection(

@@ -4,10 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <CodeAnalysisRuleSet>..\shipping.ruleset</CodeAnalysisRuleSet>
     <Description>Extensions for Asp.Net Core.</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Rixian.Extensions.Errors" Version="0.1.17" />
   </ItemGroup>
 
   <ItemGroup>

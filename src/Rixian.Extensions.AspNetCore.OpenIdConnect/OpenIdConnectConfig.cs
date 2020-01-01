@@ -3,10 +3,70 @@
 
 namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 {
+    using System.Collections.Generic;
+    using Rixian.Extensions.Errors;
+
+    /// <summary>
+    /// Configuration class for the OpenID Connect configuration.
+    /// </summary>
     public class OpenIdConnectConfig
     {
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the OpenID Connect authority.
+        /// </summary>
+        public string? Authority { get; set; }
 
-        public string Secret { get; set; }
+        /// <summary>
+        /// Gets or sets the optional custom health endpoint.
+        /// </summary>
+        public string? AuthorityHealthEndpoint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the api configuration.
+        /// </summary>
+        public OpenIdConnectApiConfig? Api { get; set; }
+
+        /// <summary>
+        /// Checks if all the required configuration values are present.
+        /// </summary>
+        /// <returns>An optional error result or nothing.</returns>
+        public Result CheckRequiredValues()
+        {
+            List<ErrorBase>? errors = null;
+
+            if (string.IsNullOrWhiteSpace(this.Authority))
+            {
+                errors ??= new List<ErrorBase>();
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.Authority)));
+            }
+
+            if (this.Api == null)
+            {
+                errors ??= new List<ErrorBase>();
+                errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.Api)));
+            }
+
+            if (errors != null)
+            {
+                return new InvalidConfigurationError
+                {
+                    Details = errors,
+                };
+            }
+
+            return Result.Default;
+        }
+
+        /// <summary>
+        /// Ensures that all the required configuration values are present. Throws an <see cref="ErrorException"/> if not.
+        /// </summary>
+        public void EnsureRequiredValues()
+        {
+            Result isValid = this.CheckRequiredValues();
+            if (isValid.IsError)
+            {
+                throw new ErrorException(isValid.Error);
+            }
+        }
     }
 }

@@ -7,24 +7,29 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
     using Rixian.Extensions.Errors;
 
     /// <summary>
-    /// Configuration class for DataProtection.
+    /// Configuration class for the DataProtection Key Ring.
     /// </summary>
-    public class DataProtectionConfig
+    public class KeyRingConfig
     {
         /// <summary>
-        /// Gets or sets the application discriminator.
+        /// Gets or sets the key name.
         /// </summary>
-        public string? ApplicationDiscriminator { get; set; }
+        public string? KeyName { get; set; }
 
         /// <summary>
-        /// Gets or sets the Azure Storage connection string.
+        /// Gets or sets the key identifier.
         /// </summary>
-        public string? AzureStorage { get; set; }
+        public string? KeyIdentifier { get; set; }
 
         /// <summary>
-        /// Gets or sets the data protection key ring values.
+        /// Gets or sets the client Id used to access KeyVault.
         /// </summary>
-        public KeyRingConfig? KeyRing { get; set; }
+        public string? ClientId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the client secret used to access KeyVault.
+        /// </summary>
+        public string? ClientSecret { get; set; }
 
         /// <summary>
         /// Checks if all the required configuration values are present.
@@ -34,22 +39,28 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         {
             List<ErrorBase>? errors = null;
 
-            if (string.IsNullOrWhiteSpace(this.ApplicationDiscriminator))
+            if (string.IsNullOrWhiteSpace(this.KeyName))
             {
                 errors ??= new List<ErrorBase>();
-                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ApplicationDiscriminator)));
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.KeyName)));
             }
 
-            if (string.IsNullOrWhiteSpace(this.AzureStorage))
+            if (string.IsNullOrWhiteSpace(this.KeyIdentifier))
             {
                 errors ??= new List<ErrorBase>();
-                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.AzureStorage)));
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.KeyIdentifier)));
             }
 
-            if (this.KeyRing == null)
+            if (string.IsNullOrWhiteSpace(this.ClientId))
             {
                 errors ??= new List<ErrorBase>();
-                errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.KeyRing)));
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ClientId)));
+            }
+
+            if (string.IsNullOrWhiteSpace(this.ClientSecret))
+            {
+                errors ??= new List<ErrorBase>();
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ClientSecret)));
             }
 
             if (errors != null)

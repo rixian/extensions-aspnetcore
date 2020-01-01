@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidConfigurationErrorMessage" xml:space="preserve">
+    <value>Invalid configuration provided.</value>
+  </data>
+  <data name="MissingRequiredConfigurationFieldErrorMessage" xml:space="preserve">
+    <value>A required configuration field is empty or null.</value>
+  </data>
+  <data name="MissingRequiredConfigurationSectionErrorMessage" xml:space="preserve">
+    <value>A required configuration section missing.</value>
+  </data>
   <data name="UnableToFindAssemblyNameErrorMessage" xml:space="preserve">
     <value>Unable to find assembly name for type.</value>
   </data>
