@@ -1,6 +1,8 @@
 // Copyright (c) Rixian. All rights reserved.
 // Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
 
+#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 namespace Rixian.Extensions.AspNetCore.Sample.Api
 {
     using Microsoft.AspNetCore.Builder;
