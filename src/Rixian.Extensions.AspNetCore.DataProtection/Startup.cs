@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 [assembly: Microsoft.AspNetCore.Hosting.HostingStartup(typeof(Rixian.Extensions.AspNetCore.DataProtection.Startup))]
 
@@ -61,11 +62,13 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
                                         o.UseClientSecrets(options.KeyRing.ClientId, options.KeyRing.ClientSecret);
                                     },
                                     name: "dataprotection-keyvault");
+
+                            logger.LogInformation("[DATA_PROTECTION] Configuration found, enabling Data Protection. ApplicationDiscriminator: {ApplicationDiscriminator}, KeyRing_KeyIdentifier: {KeyRing_KeyIdentifier}, KeyRing_KeyName: {KeyRing_KeyName}", options?.ApplicationDiscriminator, options?.KeyRing?.KeyIdentifier, options?.KeyRing?.KeyName);
                         }
                         else if (context.HostingEnvironment.IsDevelopment())
                         {
                             // Do nothing.
-                            logger.LogWarning("[DATA_PROTECTION] Invalid configuration specified, and running in Development. DataProtection will not be enabled. {Error}", isValid.Error);
+                            logger.LogWarning("[DATA_PROTECTION] Invalid configuration specified, and running in Development. DataProtection will not be enabled. {Error}", JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
                         }
                         else
                         {

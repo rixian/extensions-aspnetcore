@@ -6,10 +6,10 @@
 namespace Rixian.Extensions.AspNetCore.Api
 {
     using System;
+    using System.Globalization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
@@ -44,6 +44,7 @@ namespace Rixian.Extensions.AspNetCore.Api
                         if (DateTime.TryParse(options?.DefaultVersion, out DateTime version))
                         {
                             defaultVersion = version;
+                            logger.LogInformation("[API] Found default api version. DefaultVersion: {DefaultVersion}", defaultVersion?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
                         }
 
                         services
