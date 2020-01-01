@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using Newtonsoft.Json;
 
 [assembly: Microsoft.AspNetCore.Hosting.HostingStartup(typeof(Rixian.Extensions.AspNetCore.OpenIdConnect.Startup))]
 
@@ -51,18 +52,16 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 
                         if (isValid.IsSuccess)
                         {
-                            this.AddHealthCheckServices(services, options.Authority!, options.AuthorityHealthEndpoint);
+                            this.AddHealthCheckServices(services, logger, options.Authority!, options.AuthorityHealthEndpoint);
                             services.AddTransient<IStartupFilter, OidcStartupFilter>();
+                            this.AddAuthenticationServices(services, logger, options.Api!.Name!, options.Api!.Secret, options.Authority!, context.HostingEnvironment);
 
-                            if (options.Api != null)
-                            {
-                                this.AddAuthenticationServices(services, options.Api.Name!, options.Api.Secret, options.Authority!, context.HostingEnvironment);
-                            }
+                            logger.LogInformation("[IDENTITY] Configuration found, enabling Identity. ApiName: {ApiName}, Authority: {Authority}", options?.Api?.Name, options?.Authority);
                         }
                         else if (context.HostingEnvironment.IsDevelopment())
                         {
                             // Do nothing.
-                            logger.LogWarning("[IDENTITY] Invalid configuration specified, and running in Development. Identity will not be enabled. {Error}", isValid.Error);
+                            logger.LogWarning("[IDENTITY] Invalid configuration specified, and running in Development. Identity will not be enabled. {Error}", JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
                         }
                         else
                         {
@@ -72,15 +71,17 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 });
         }
 
-        private void AddHealthCheckServices(IServiceCollection services, string authority, string? healthEndpoint = null)
+        private void AddHealthCheckServices(IServiceCollection services, ILogger logger, string authority, string? healthEndpoint = null)
         {
             healthEndpoint ??= "/.well-known/openid-configuration";
+            var endpointUri = new Uri(new Uri(authority), healthEndpoint);
 
+            logger.LogInformation(Properties.Resources.ConfiguringHealthCheckInfoMessage, endpointUri);
             _ = services.AddHealthChecks()
-                .AddUrlGroup(new Uri(new Uri(authority), healthEndpoint), "oidc", tags: new[] { "services" });
+                .AddUrlGroup(endpointUri, "oidc", tags: new[] { "services" });
         }
 
-        private void AddAuthenticationServices(IServiceCollection services, string apiName, string? apiSecret, string authority, IWebHostEnvironment hostEnvironment)
+        private void AddAuthenticationServices(IServiceCollection services, ILogger logger, string apiName, string? apiSecret, string authority, IWebHostEnvironment hostEnvironment)
         {
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
@@ -92,6 +93,8 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 });
 
             IdentityModelEventSource.ShowPII = hostEnvironment.IsDevelopment();
+
+            logger.LogInformation(Properties.Resources.ShowPiiInfoMessage, IdentityModelEventSource.ShowPII);
         }
     }
 }

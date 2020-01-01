@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 [assembly: Microsoft.AspNetCore.Hosting.HostingStartup(typeof(Rixian.Extensions.AspNetCore.StackExchangeRedis.Startup))]
 
@@ -57,10 +58,12 @@ namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
                             services
                                 .AddHealthChecks()
                                 .AddRedis(options.Configuration);
+
+                            logger.LogInformation("[REDIS] Configuration found, enabling Redis. InstanceName: {InstanceName}", options?.InstanceName);
                         }
                         else if (context.HostingEnvironment.IsDevelopment())
                         {
-                            logger.LogWarning("[REDIS] No Redis configuration specified, and running in Development. The In-Memory distributed cache will be enabled. {Error}", isValid.Error);
+                            logger.LogWarning("[REDIS] No Redis configuration specified, and running in Development. The In-Memory distributed cache will be enabled. {Error}", JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
                             services.AddDistributedMemoryCache();
                         }
                         else

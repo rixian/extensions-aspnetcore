@@ -12,11 +12,11 @@ namespace Microsoft.Extensions.Hosting
     public static class ApiHostingExtensions
     {
         /// <summary>
-        /// Adds api services to the application.
+        /// Adds api services to the application, including OpenId Connect, Data Protection, and Redis caching.
         /// </summary>
         /// <param name="webBuilder">The WebHostBuilder.</param>
         /// <returns>The updated WebHostBuilder.</returns>
-        public static IWebHostBuilder UseApiSetup(this IWebHostBuilder webBuilder)
+        public static IWebHostBuilder UseCompleteApiSetup(this IWebHostBuilder webBuilder)
         {
             if (webBuilder is null)
             {
@@ -28,6 +28,23 @@ namespace Microsoft.Extensions.Hosting
                 .UseOpenIdConnect()
                 .UseDataProtection()
                 .UseStackExchangeRedis()
+                .TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.Api.Startup));
+        }
+
+        /// <summary>
+        /// Adds basic api services to the application.
+        /// </summary>
+        /// <param name="webBuilder">The WebHostBuilder.</param>
+        /// <returns>The updated WebHostBuilder.</returns>
+        public static IWebHostBuilder UseBasicApiSetup(this IWebHostBuilder webBuilder)
+        {
+            if (webBuilder is null)
+            {
+                throw new ArgumentNullException(nameof(webBuilder));
+            }
+
+            return webBuilder
+                .UseBasicExtensions()
                 .TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.Api.Startup));
         }
     }

@@ -45,6 +45,15 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 errors ??= new List<ErrorBase>();
                 errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.Api)));
             }
+            else
+            {
+                Result isApiValid = this.Api.CheckRequiredValues();
+                if (isApiValid.IsError)
+                {
+                    errors ??= new List<ErrorBase>();
+                    errors.Add(isApiValid.Error);
+                }
+            }
 
             if (errors != null)
             {
