@@ -39,7 +39,7 @@ namespace Rixian.Extensions.AspNetCore.Api
                         logger.LogWarning("[API] No configuration section named 'Api' found.");
                     }
 
-                    options.EnsureRequiredValues();
+                    options?.EnsureRequiredValues();
                     if (DateTime.TryParse(options?.DefaultVersion, out DateTime version))
                     {
                         defaultVersion = version;

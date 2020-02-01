@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// Extensions for registering api methods with the dependency injection container.
     /// </summary>
-    public static class StartupExtensions
+    internal static class StartupExtensions
     {
         /// <summary>
         /// Adds the Api Explorer to the DI container.
