@@ -87,7 +87,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = authority;
-                    options.RequireHttpsMetadata = true;
+                    options.RequireHttpsMetadata = !hostEnvironment.IsDevelopment();
                     options.ApiName = apiName;
                     options.ApiSecret = apiSecret;
                 });

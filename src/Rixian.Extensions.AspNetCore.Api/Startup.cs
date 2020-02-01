@@ -38,24 +38,23 @@ namespace Rixian.Extensions.AspNetCore.Api
                         // Do nothing.
                         logger.LogWarning("[API] No configuration section named 'Api' found.");
                     }
-                    else
+
+                    options.EnsureRequiredValues();
+                    if (DateTime.TryParse(options?.DefaultVersion, out DateTime version))
                     {
-                        options.EnsureRequiredValues();
-                        if (DateTime.TryParse(options?.DefaultVersion, out DateTime version))
-                        {
-                            defaultVersion = version;
-                            logger.LogInformation("[API] Found default api version. DefaultVersion: {DefaultVersion}", defaultVersion?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-                        }
-
-                        services
-                                .AddApiExplorerServices()
-                                .AddMvcServices()
-                                .AddCorsServices()
-                                .AddAuthorizationServices()
-                                .AddApiVersioningServices(defaultVersion);
-
-                        services.AddTransient<IStartupFilter, CorsStartupFilter>();
+                        defaultVersion = version;
+                        logger.LogInformation("[API] Found default api version. DefaultVersion: {DefaultVersion}", defaultVersion?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
                     }
+
+                    services
+                            .AddApiExplorerServices()
+                            .AddMvcServices()
+                            .AddCorsServices()
+                            .AddAuthorizationServices()
+                            .AddApiVersioningServices(defaultVersion);
+
+                    services.AddTransient<IStartupFilter, CorsStartupFilter>();
+                    services.AddTransient<IStartupFilter, DefaultStartupFilter>();
                 });
         }
     }

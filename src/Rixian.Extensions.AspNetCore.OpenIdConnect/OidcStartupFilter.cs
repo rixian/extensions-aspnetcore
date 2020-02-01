@@ -17,8 +17,8 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
         {
             return app =>
             {
-                app.UseAuthentication();
-                app.UseAuthorization();
+                //app.UseAuthentication();
+                //app.UseAuthorization();
                 next(app);
             };
         }
