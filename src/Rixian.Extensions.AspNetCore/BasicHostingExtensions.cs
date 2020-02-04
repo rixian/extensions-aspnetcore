@@ -5,6 +5,8 @@ namespace Microsoft.Extensions.Hosting
 {
     using System;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.DependencyInjection;
+    using Rixian.Extensions.AspNetCore;
 
     /// <summary>
     /// Extensions for adding basic services.
@@ -24,6 +26,23 @@ namespace Microsoft.Extensions.Hosting
             }
 
             return webBuilder.TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.Startup));
+        }
+
+        /// <summary>
+        /// Adds the basic services to the application.
+        /// </summary>
+        /// <param name="webBuilder">The WebHostBuilder.</param>
+        /// <returns>The updated WebHostBuilder.</returns>
+        public static IWebHostBuilder UseBasicExtensions(this IWebHostBuilder webBuilder, StartupBuilder startupBuilder)
+        {
+            if (webBuilder is null)
+            {
+                throw new ArgumentNullException(nameof(webBuilder));
+            }
+
+            return webBuilder
+                .UseBasicExtensions()
+                .ConfigureServices(services => services.AddSingleton<StartupBuilder>(startupBuilder));
         }
     }
 }

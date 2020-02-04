@@ -26,7 +26,8 @@ namespace Rixian.Extensions.AspNetCore.Sample.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseCompleteApiSetup()
+                        //.UseCompleteApiSetup()
+                        .UseOpenIdConnect()
                         .UseStartup<Startup>();
                 });
     }

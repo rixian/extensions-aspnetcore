@@ -30,6 +30,8 @@ namespace Rixian.Extensions.AspNetCore.Api
                 {
                     ILogger<Startup> logger = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>().CreateLogger<Startup>();
 
+                    services.AddControllers();
+
                     ApiConfig? options = context.Configuration.GetSection("Api")?.Get<ApiConfig>();
                     DateTime? defaultVersion = null;
 
@@ -53,8 +55,8 @@ namespace Rixian.Extensions.AspNetCore.Api
                             .AddAuthorizationServices()
                             .AddApiVersioningServices(defaultVersion);
 
-                    services.AddTransient<IStartupFilter, CorsStartupFilter>();
-                    services.AddTransient<IStartupFilter, DefaultStartupFilter>();
+                    //services.AddTransient<IStartupFilter, CorsStartupFilter>();
+                    //services.AddTransient<IStartupFilter, DefaultStartupFilter>();
                 });
         }
     }
