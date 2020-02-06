@@ -67,8 +67,8 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
                         }
                         else if (context.HostingEnvironment.IsDevelopment())
                         {
-                            // Do nothing.
-                            logger.LogWarning("[DATA_PROTECTION] Invalid configuration specified, and running in Development. DataProtection will not be enabled. {Error}", JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
+                            services.AddDataProtection();
+                            logger.LogWarning("[DATA_PROTECTION] Invalid configuration specified, and running in Development. Local-only DataProtection will be enabled. {Error}", JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
                         }
                         else
                         {
