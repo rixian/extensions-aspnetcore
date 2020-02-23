@@ -9,6 +9,7 @@ namespace Rixian.Extensions.AspNetCore
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Routing;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
 
@@ -16,15 +17,15 @@ namespace Rixian.Extensions.AspNetCore
     {
         public ICollection<Action<WebHostBuilderContext, IServiceCollection>> ServiceConfigurators { get; } = new List<Action<WebHostBuilderContext, IServiceCollection>>();
 
-        public Action<WebHostBuilderContext, IApplicationBuilder, IEndpointRouteBuilder>? ConfigureEndpoints { get; set; }
+        public Action<IConfiguration, IWebHostEnvironment, IApplicationBuilder, IEndpointRouteBuilder>? ConfigureEndpoints { get; set; }
 
-        public Action<WebHostBuilderContext, IApplicationBuilder>? PreviewUseRouting { get; set; }
+        public Action<IConfiguration, IWebHostEnvironment, IApplicationBuilder>? PreviewUseRouting { get; set; }
 
-        public Action<WebHostBuilderContext, IApplicationBuilder>? PreviewUseEndpoints { get; set; }
+        public Action<IConfiguration, IWebHostEnvironment, IApplicationBuilder>? PreviewUseEndpoints { get; set; }
 
-        public Action<WebHostBuilderContext, IApplicationBuilder>? PreviewUseAuthentication { get; set; }
+        public Action<IConfiguration, IWebHostEnvironment, IApplicationBuilder>? PreviewUseAuthentication { get; set; }
 
-        public Action<WebHostBuilderContext, IApplicationBuilder>? PreviewUseAuthorization { get; set; }
+        public Action<IConfiguration, IWebHostEnvironment, IApplicationBuilder>? PreviewUseAuthorization { get; set; }
 
         public virtual void ConfigureServices(WebHostBuilderContext context, IServiceCollection services)
         { }

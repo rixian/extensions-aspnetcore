@@ -24,8 +24,7 @@ namespace Microsoft.Extensions.Hosting
             }
 
             return webBuilder
-                .UseBasicExtensions(new Rixian.Extensions.AspNetCore.OpenIdConnect.OidcStartupBuilder())
-                .TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.OpenIdConnect.Startup));
+                .UseBasicExtensions(new Rixian.Extensions.AspNetCore.OpenIdConnect.OidcStartupBuilder());
         }
     }
 }

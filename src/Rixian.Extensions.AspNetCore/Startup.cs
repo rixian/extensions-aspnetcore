@@ -7,8 +7,13 @@ namespace Rixian.Extensions.AspNetCore
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Mime;
+    using System.Text.Json;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Diagnostics.HealthChecks;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Hosting;
@@ -33,77 +38,58 @@ namespace Rixian.Extensions.AspNetCore
             builder
                 .ConfigureServices((ctx, services) =>
                 {
-                    IEnumerable<StartupBuilder> startupBuilders = services.BuildServiceProvider().GetServices<StartupBuilder>();
-
-                    services
-                        .AddHealthChecks()
-                        .AddCheck("self", () => HealthCheckResult.Healthy());
-
-                    services.AddTransient<IStartupFilter, HealthStartupFilter>();
-
-                    foreach (StartupBuilder startupBuilder in startupBuilders)
-                    {
-                        startupBuilder?.ConfigureServices(ctx, services);
-                        if (startupBuilder?.ServiceConfigurators != null)
-                        {
-                            foreach (Action<WebHostBuilderContext, IServiceCollection> configurator in startupBuilder.ServiceConfigurators)
-                            {
-                                configurator?.Invoke(ctx, services);
-                            }
-                        }
-                    }
-                })
-                .Configure((ctx, app) =>
-                {
-                    IEnumerable<StartupBuilder> startupBuilders = app.ApplicationServices.GetRequiredService<IEnumerable<StartupBuilder>>();
-
-                    if (ctx.HostingEnvironment.IsDevelopment())
-                    {
-                        app.UseDeveloperExceptionPage();
-                    }
-                    else
-                    {
-                        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                        app.UseHsts();
-                        app.UseHttpsRedirection();
-                    }
-
-                    foreach (StartupBuilder builder in startupBuilders)
-                    {
-                        builder.PreviewUseRouting?.Invoke(ctx, app);
-                    }
-
-                    app.UseRouting();
-
-                    foreach (StartupBuilder startupBuilder in startupBuilders)
-                    {
-                        startupBuilder.PreviewUseAuthentication?.Invoke(ctx, app);
-                    }
-
-                    app.UseAuthentication();
-
-                    foreach (StartupBuilder startupBuilder in startupBuilders)
-                    {
-                        startupBuilder.PreviewUseAuthorization?.Invoke(ctx, app);
-                    }
-
-                    app.UseAuthorization();
-
-                    foreach (StartupBuilder startupBuilder in startupBuilders)
-                    {
-                        startupBuilder.PreviewUseEndpoints?.Invoke(ctx, app);
-                    }
-
-                    app.UseEndpoints(endpoints =>
-                    {
-                        foreach (StartupBuilder startupBuilder in startupBuilders)
-                        {
-                            startupBuilder.ConfigureEndpoints?.Invoke(ctx, app, endpoints);
-                        }
-
-                        endpoints.MapControllers();
-                    });
                 });
+                //.Configure((ctx, app) =>
+                //{
+                //    IEnumerable<StartupBuilder> startupBuilders = app.ApplicationServices.GetRequiredService<IEnumerable<StartupBuilder>>();
+
+                //    if (ctx.HostingEnvironment.IsDevelopment())
+                //    {
+                //        app.UseDeveloperExceptionPage();
+                //    }
+                //    else
+                //    {
+                //        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //        app.UseHsts();
+                //        app.UseHttpsRedirection();
+                //    }
+
+                //    foreach (StartupBuilder builder in startupBuilders)
+                //    {
+                //        builder.PreviewUseRouting?.Invoke(ctx, app);
+                //    }
+
+                //    app.UseRouting();
+
+                //    foreach (StartupBuilder startupBuilder in startupBuilders)
+                //    {
+                //        startupBuilder.PreviewUseAuthentication?.Invoke(ctx, app);
+                //    }
+
+                //    app.UseAuthentication();
+
+                //    foreach (StartupBuilder startupBuilder in startupBuilders)
+                //    {
+                //        startupBuilder.PreviewUseAuthorization?.Invoke(ctx, app);
+                //    }
+
+                //    app.UseAuthorization();
+
+                //    foreach (StartupBuilder startupBuilder in startupBuilders)
+                //    {
+                //        startupBuilder.PreviewUseEndpoints?.Invoke(ctx, app);
+                //    }
+
+                //    app.UseEndpoints(endpoints =>
+                //    {
+                //        foreach (StartupBuilder startupBuilder in startupBuilders)
+                //        {
+                //            startupBuilder.ConfigureEndpoints?.Invoke(ctx, app, endpoints);
+                //        }
+
+                //        endpoints.MapControllers();
+                //    });
+                //});
         }
     }
 }

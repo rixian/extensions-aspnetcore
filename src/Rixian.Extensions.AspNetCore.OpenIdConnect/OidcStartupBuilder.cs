@@ -12,8 +12,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json;
 
-[assembly: Microsoft.AspNetCore.Hosting.HostingStartup(typeof(Rixian.Extensions.AspNetCore.OpenIdConnect.Startup))]
-
 namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 {
     /// <summary>
@@ -23,7 +21,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
     {
         public override void ConfigureServices(WebHostBuilderContext context, IServiceCollection services)
         {
-            ILogger<Startup> logger = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>().CreateLogger<Startup>();
+            ILogger<OidcStartupBuilder> logger = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>().CreateLogger<OidcStartupBuilder>();
             OpenIdConnectConfig? options = context.Configuration.GetSection("Identity")?.Get<OpenIdConnectConfig>();
             if (options == null)
             {
@@ -44,7 +42,6 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 if (isValid.IsSuccess)
                 {
                     this.AddHealthCheckServices(services, logger, options.Authority!, options.AuthorityHealthEndpoint);
-                    services.AddTransient<IStartupFilter, OidcStartupFilter>();
                     this.AddAuthenticationServices(services, logger, options.Api!.Name!, options.Api!.Secret, options.Authority!, context.HostingEnvironment);
 
                     logger.LogInformation("[IDENTITY] Configuration found, enabling Identity. ApiName: {ApiName}, Authority: {Authority}", options?.Api?.Name, options?.Authority);

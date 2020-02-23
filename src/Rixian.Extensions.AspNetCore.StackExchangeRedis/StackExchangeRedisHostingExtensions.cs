@@ -24,8 +24,7 @@ namespace Microsoft.Extensions.Hosting
             }
 
             return webBuilder
-                .UseBasicExtensions()
-                .TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.StackExchangeRedis.Startup));
+                .UseBasicExtensions(new Rixian.Extensions.AspNetCore.StackExchangeRedis.StackExchangeRedisStartupBuilder());
         }
     }
 }

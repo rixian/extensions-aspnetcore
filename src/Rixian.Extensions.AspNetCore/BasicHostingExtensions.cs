@@ -4,7 +4,10 @@
 namespace Microsoft.Extensions.Hosting
 {
     using System;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Rixian.Extensions.AspNetCore;
 
@@ -41,8 +44,8 @@ namespace Microsoft.Extensions.Hosting
             }
 
             return webBuilder
-                .UseBasicExtensions()
-                .ConfigureServices(services => services.AddSingleton<StartupBuilder>(startupBuilder));
+                .ConfigureServices(services => services.AddSingleton<StartupBuilder>(startupBuilder))
+                .UseBasicExtensions();
         }
     }
 }

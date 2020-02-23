@@ -4,7 +4,13 @@
 namespace Microsoft.Extensions.Hosting
 {
     using System;
+    using System.Globalization;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Rixian.Extensions.AspNetCore;
+    using Rixian.Extensions.AspNetCore.Api;
 
     /// <summary>
     /// Extensions for adding api services.
@@ -24,28 +30,28 @@ namespace Microsoft.Extensions.Hosting
             }
 
             return webBuilder
-                .UseBasicExtensions()
+                .UseBasicExtensions(new ApiStartupBuilder())
                 .UseOpenIdConnect()
                 .UseDataProtection()
-                .UseStackExchangeRedis()
-                .TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.Api.Startup));
+                .UseStackExchangeRedis();
+                //.TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.Api.Startup));
         }
 
-        /// <summary>
-        /// Adds basic api services to the application.
-        /// </summary>
-        /// <param name="webBuilder">The WebHostBuilder.</param>
-        /// <returns>The updated WebHostBuilder.</returns>
-        public static IWebHostBuilder UseBasicApiSetup(this IWebHostBuilder webBuilder)
-        {
-            if (webBuilder is null)
-            {
-                throw new ArgumentNullException(nameof(webBuilder));
-            }
+        ///// <summary>
+        ///// Adds basic api services to the application.
+        ///// </summary>
+        ///// <param name="webBuilder">The WebHostBuilder.</param>
+        ///// <returns>The updated WebHostBuilder.</returns>
+        //public static IWebHostBuilder UseBasicApiSetup(this IWebHostBuilder webBuilder)
+        //{
+        //    if (webBuilder is null)
+        //    {
+        //        throw new ArgumentNullException(nameof(webBuilder));
+        //    }
 
-            return webBuilder
-                .UseBasicExtensions()
-                .TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.Api.Startup));
-        }
+        //    return webBuilder
+        //        .UseBasicExtensions()
+        //        .TryAddHostingStartupAssembly(typeof(Rixian.Extensions.AspNetCore.Api.Startup));
+        //}
     }
 }

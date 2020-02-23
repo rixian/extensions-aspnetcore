@@ -56,7 +56,7 @@ namespace Microsoft.Extensions.Hosting
             bool assemblyAdded = setting?.Split(';', StringSplitOptions.RemoveEmptyEntries)?.Any(s => string.Equals(s, assemblyName, StringComparison.OrdinalIgnoreCase)) ?? false;
             if (assemblyAdded == false)
             {
-                webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, string.Join(';', setting, assemblyName));
+                webBuilder.UseSetting(WebHostDefaults.HostingStartupAssembliesKey, string.Join(';', setting, assemblyName).Trim().Trim(';'));
             }
 
             return webBuilder;
