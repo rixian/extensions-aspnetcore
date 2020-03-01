@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rixian.Extensions.AspNetCore.DataProtection.Properties {
+namespace Rixian.Extensions.AspNetCore.StackExchangeRedis.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Rixian.Extensions.AspNetCore.DataProtection.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Rixian.Extensions.AspNetCore.StackExchangeRedis.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [DATA_PROTECTION] Configuration found, enabling Data Protection. ApplicationDiscriminator: {ApplicationDiscriminator}, KeyRing_KeyIdentifier: {KeyRing_KeyIdentifier}, KeyRing_KeyName: {KeyRing_KeyName}.
+        ///   Looks up a localized string similar to [REDIS] Configuration found, enabling Redis. InstanceName: {InstanceName}.
         /// </summary>
         internal static string ConfigurationFoundMessage {
             get {
@@ -70,7 +70,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [DATA_PROTECTION] No configuration section named &apos;DataProtection&apos; found, and running in Development. DataProtection will not be enabled..
+        ///   Looks up a localized string similar to [REDIS] No configuration section named &apos;Redis&apos; found, and running in Development. Redis will not be enabled..
         /// </summary>
         internal static string ConfigurationMissingMessage {
             get {
@@ -79,16 +79,16 @@ namespace Rixian.Extensions.AspNetCore.DataProtection.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DataProtection credentials must be provided for non-Development applications..
+        ///   Looks up a localized string similar to Redis configuration must be provided for non-Development applications..
         /// </summary>
-        internal static string CredentialsRequiredMessage {
+        internal static string ConfigurationRequiredMessage {
             get {
-                return ResourceManager.GetString("CredentialsRequiredMessage", resourceCulture);
+                return ResourceManager.GetString("ConfigurationRequiredMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [DATA_PROTECTION] Invalid configuration specified, and running in Development. Local-only DataProtection will be enabled. {Error}.
+        ///   Looks up a localized string similar to [REDIS] No Redis configuration specified, and running in Development. The In-Memory distributed cache will be enabled. {Error}.
         /// </summary>
         internal static string InvalidConfigurationMessage {
             get {
@@ -97,25 +97,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to KeyRing must be provided..
-        /// </summary>
-        internal static string MissingKeyRingErrorMessage {
-            get {
-                return ResourceManager.GetString("MissingKeyRingErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A value must be provided..
-        /// </summary>
-        internal static string MissingValueErrorMessage {
-            get {
-                return ResourceManager.GetString("MissingValueErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [DATA_PROTECTION] No configuration section named &apos;DataProtection&apos; found, and running in as non-Development. DataProtection credentials must be provided for non-Development applications..
+        ///   Looks up a localized string similar to [REDIS] No configuration section named &apos;Redis&apos; found, and running in as non-Development. Redis configuration must be provided for non-Development applications..
         /// </summary>
         internal static string RequiredConfigurationMissingMessage {
             get {

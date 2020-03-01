@@ -118,24 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfigurationFoundMessage" xml:space="preserve">
-    <value>[IDENTITY] Configuration found, enabling Identity. ApiName: {ApiName}, Authority: {Authority}</value>
+    <value>[REDIS] Configuration found, enabling Redis. InstanceName: {InstanceName}</value>
   </data>
   <data name="ConfigurationMissingMessage" xml:space="preserve">
-    <value>[IDENTITY] No configuration section named 'Identity' found, and running in Development. Identity will not be enabled.</value>
+    <value>[REDIS] No configuration section named 'Redis' found, and running in Development. Redis will not be enabled.</value>
   </data>
   <data name="ConfigurationRequiredMessage" xml:space="preserve">
-    <value>Identity configuration must be provided for non-Development applications.</value>
-  </data>
-  <data name="ConfiguringHealthCheckInfoMessage" xml:space="preserve">
-    <value>[IDENTITY] Configuring identity health check for endpoint: {HealthEndpoint}</value>
+    <value>Redis configuration must be provided for non-Development applications.</value>
   </data>
   <data name="InvalidConfigurationMessage" xml:space="preserve">
-    <value>[IDENTITY] Invalid configuration specified, and running in Development. Identity will not be enabled. {Error}</value>
+    <value>[REDIS] No Redis configuration specified, and running in Development. The In-Memory distributed cache will be enabled. {Error}</value>
   </data>
   <data name="RequiredConfigurationMissingMessage" xml:space="preserve">
-    <value>[IDENTITY] No configuration section named 'Identity' found, and running in as non-Development. Identity configuration must be provided for non-Development applications.</value>
-  </data>
-  <data name="ShowPiiInfoMessage" xml:space="preserve">
-    <value>[IDENTITY] Showing PII: {ShowPII}</value>
+    <value>[REDIS] No configuration section named 'Redis' found, and running in as non-Development. Redis configuration must be provided for non-Development applications.</value>
   </data>
 </root>

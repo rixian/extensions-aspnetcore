@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConfigurationFoundMessage" xml:space="preserve">
+    <value>[DATA_PROTECTION] Configuration found, enabling Data Protection. ApplicationDiscriminator: {ApplicationDiscriminator}, KeyRing_KeyIdentifier: {KeyRing_KeyIdentifier}, KeyRing_KeyName: {KeyRing_KeyName}</value>
+  </data>
+  <data name="ConfigurationMissingMessage" xml:space="preserve">
+    <value>[DATA_PROTECTION] No configuration section named 'DataProtection' found, and running in Development. DataProtection will not be enabled.</value>
+  </data>
+  <data name="CredentialsRequiredMessage" xml:space="preserve">
+    <value>DataProtection credentials must be provided for non-Development applications.</value>
+  </data>
+  <data name="InvalidConfigurationMessage" xml:space="preserve">
+    <value>[DATA_PROTECTION] Invalid configuration specified, and running in Development. Local-only DataProtection will be enabled. {Error}</value>
+  </data>
   <data name="MissingKeyRingErrorMessage" xml:space="preserve">
     <value>KeyRing must be provided.</value>
   </data>
   <data name="MissingValueErrorMessage" xml:space="preserve">
     <value>A value must be provided.</value>
+  </data>
+  <data name="RequiredConfigurationMissingMessage" xml:space="preserve">
+    <value>[DATA_PROTECTION] No configuration section named 'DataProtection' found, and running in as non-Development. DataProtection credentials must be provided for non-Development applications.</value>
   </data>
 </root>

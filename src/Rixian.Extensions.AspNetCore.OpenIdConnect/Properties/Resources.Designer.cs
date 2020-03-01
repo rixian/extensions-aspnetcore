@@ -61,11 +61,56 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [IDENTITY] Configuration found, enabling Identity. ApiName: {ApiName}, Authority: {Authority}.
+        /// </summary>
+        internal static string ConfigurationFoundMessage {
+            get {
+                return ResourceManager.GetString("ConfigurationFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [IDENTITY] No configuration section named &apos;Identity&apos; found, and running in Development. Identity will not be enabled..
+        /// </summary>
+        internal static string ConfigurationMissingMessage {
+            get {
+                return ResourceManager.GetString("ConfigurationMissingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity configuration must be provided for non-Development applications..
+        /// </summary>
+        internal static string ConfigurationRequiredMessage {
+            get {
+                return ResourceManager.GetString("ConfigurationRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [IDENTITY] Configuring identity health check for endpoint: {HealthEndpoint}.
         /// </summary>
         internal static string ConfiguringHealthCheckInfoMessage {
             get {
                 return ResourceManager.GetString("ConfiguringHealthCheckInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [IDENTITY] Invalid configuration specified, and running in Development. Identity will not be enabled. {Error}.
+        /// </summary>
+        internal static string InvalidConfigurationMessage {
+            get {
+                return ResourceManager.GetString("InvalidConfigurationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [IDENTITY] No configuration section named &apos;Identity&apos; found, and running in as non-Development. Identity configuration must be provided for non-Development applications..
+        /// </summary>
+        internal static string RequiredConfigurationMissingMessage {
+            get {
+                return ResourceManager.GetString("RequiredConfigurationMissingMessage", resourceCulture);
             }
         }
         

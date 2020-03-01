@@ -4,10 +4,7 @@
 namespace Microsoft.Extensions.Hosting
 {
     using System;
-    using System.Collections.Generic;
-    using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Rixian.Extensions.AspNetCore;
 
@@ -35,6 +32,7 @@ namespace Microsoft.Extensions.Hosting
         /// Adds the basic services to the application.
         /// </summary>
         /// <param name="webBuilder">The WebHostBuilder.</param>
+        /// <param name="startupBuilder">The StartupBuilder.</param>
         /// <returns>The updated WebHostBuilder.</returns>
         public static IWebHostBuilder UseBasicExtensions(this IWebHostBuilder webBuilder, StartupBuilder startupBuilder)
         {

@@ -1,23 +1,29 @@
 ﻿// Copyright (c) Rixian. All rights reserved.
 // Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
 
-using System;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-
 namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
 {
+    using System;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Additional Redis startup services.
     /// </summary>
     public class StackExchangeRedisStartupBuilder : StartupBuilder
     {
+        /// <inheritdoc/>
         public override void ConfigureServices(WebHostBuilderContext context, IServiceCollection services)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             ILogger<StackExchangeRedisStartupBuilder> logger = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>().CreateLogger<StackExchangeRedisStartupBuilder>();
             RedisConfig? options = context.Configuration.GetSection("Redis")?.Get<RedisConfig>();
             if (options == null)
@@ -25,11 +31,11 @@ namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
                 if (context.HostingEnvironment.IsDevelopment())
                 {
                     // Do nothing.
-                    logger.LogWarning("[REDIS] No configuration section named 'Redis' found, and running in Development. Redis will not be enabled.");
+                    logger.LogWarning(Properties.Resources.ConfigurationMissingMessage);
                 }
                 else
                 {
-                    throw new InvalidOperationException("[REDIS] No configuration section named 'Redis' found, and running in as non-Development. Redis configuration must be provided for non-Development applications.");
+                    throw new InvalidOperationException(Properties.Resources.RequiredConfigurationMissingMessage);
                 }
             }
             else
@@ -48,16 +54,16 @@ namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
                         .AddHealthChecks()
                         .AddRedis(options.Configuration);
 
-                    logger.LogInformation("[REDIS] Configuration found, enabling Redis. InstanceName: {InstanceName}", options?.InstanceName);
+                    logger.LogInformation(Properties.Resources.ConfigurationFoundMessage, options?.InstanceName);
                 }
                 else if (context.HostingEnvironment.IsDevelopment())
                 {
-                    logger.LogWarning("[REDIS] No Redis configuration specified, and running in Development. The In-Memory distributed cache will be enabled. {Error}", JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
+                    logger.LogWarning(Properties.Resources.InvalidConfigurationMessage, JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
                     services.AddDistributedMemoryCache();
                 }
                 else
                 {
-                    throw new ErrorException(isValid.Error, "Redis configuration must be provided for non-Development applications.");
+                    throw new ErrorException(isValid.Error, Properties.Resources.ConfigurationRequiredMessage);
                 }
             }
         }

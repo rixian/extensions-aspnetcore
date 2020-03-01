@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Text.Json;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
+﻿// Copyright (c) Rixian. All rights reserved.
+// Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
 
 namespace Rixian.Extensions.AspNetCore.Api
 {
+    using System;
+    using System.Linq;
+    using System.Net.Mime;
+    using System.Text.Json;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+
+    /// <summary>
+    /// The StartupBuilder for health endpoints.
+    /// </summary>
     public class HealthServicesStartupBuilder : StartupBuilder
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HealthServicesStartupBuilder"/> class.
+        /// </summary>
         public HealthServicesStartupBuilder()
         {
-
             this.PreviewUseEndpoints = (configuration, environment, app) =>
             {
                 app
@@ -57,7 +60,7 @@ namespace Rixian.Extensions.AspNetCore.Api
             };
         }
 
-
+        /// <inheritdoc/>
         public override void ConfigureServices(WebHostBuilderContext context, IServiceCollection services)
         {
             services

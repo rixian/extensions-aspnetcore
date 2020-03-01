@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfigurationFoundMessage" xml:space="preserve">
-    <value>[IDENTITY] Configuration found, enabling Identity. ApiName: {ApiName}, Authority: {Authority}</value>
+  <data name="ConfigurationNotFoundMessage" xml:space="preserve">
+    <value>[API] No configuration section named 'Api' found.</value>
   </data>
-  <data name="ConfigurationMissingMessage" xml:space="preserve">
-    <value>[IDENTITY] No configuration section named 'Identity' found, and running in Development. Identity will not be enabled.</value>
-  </data>
-  <data name="ConfigurationRequiredMessage" xml:space="preserve">
-    <value>Identity configuration must be provided for non-Development applications.</value>
-  </data>
-  <data name="ConfiguringHealthCheckInfoMessage" xml:space="preserve">
-    <value>[IDENTITY] Configuring identity health check for endpoint: {HealthEndpoint}</value>
-  </data>
-  <data name="InvalidConfigurationMessage" xml:space="preserve">
-    <value>[IDENTITY] Invalid configuration specified, and running in Development. Identity will not be enabled. {Error}</value>
-  </data>
-  <data name="RequiredConfigurationMissingMessage" xml:space="preserve">
-    <value>[IDENTITY] No configuration section named 'Identity' found, and running in as non-Development. Identity configuration must be provided for non-Development applications.</value>
-  </data>
-  <data name="ShowPiiInfoMessage" xml:space="preserve">
-    <value>[IDENTITY] Showing PII: {ShowPII}</value>
+  <data name="FoundDefaultVersionMessage" xml:space="preserve">
+    <value>[API] Found default api version. DefaultVersion: {DefaultVersion}</value>
   </data>
 </root>

@@ -1,26 +1,32 @@
 ﻿// Copyright (c) Rixian. All rights reserved.
 // Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
 
-using System;
-using IdentityServer4.AccessTokenValidation;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Logging;
-using Newtonsoft.Json;
-
 namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 {
+    using System;
+    using IdentityServer4.AccessTokenValidation;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.IdentityModel.Logging;
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Additional OpenID Connect startup services.
     /// </summary>
     public class OidcStartupBuilder : StartupBuilder
     {
+        /// <inheritdoc/>
         public override void ConfigureServices(WebHostBuilderContext context, IServiceCollection services)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             ILogger<OidcStartupBuilder> logger = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>().CreateLogger<OidcStartupBuilder>();
             OpenIdConnectConfig? options = context.Configuration.GetSection("Identity")?.Get<OpenIdConnectConfig>();
             if (options == null)
@@ -28,11 +34,11 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 if (context.HostingEnvironment.IsDevelopment())
                 {
                     // Do nothing.
-                    logger.LogWarning("[IDENTITY] No configuration section named 'Identity' found, and running in Development. Identity will not be enabled.");
+                    logger.LogWarning(Properties.Resources.ConfigurationMissingMessage);
                 }
                 else
                 {
-                    throw new InvalidOperationException("[IDENTITY] No configuration section named 'Identity' found, and running in as non-Development. Identity configuration must be provided for non-Development applications.");
+                    throw new InvalidOperationException(Properties.Resources.RequiredConfigurationMissingMessage);
                 }
             }
             else
@@ -44,16 +50,16 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                     this.AddHealthCheckServices(services, logger, options.Authority!, options.AuthorityHealthEndpoint);
                     this.AddAuthenticationServices(services, logger, options.Api!.Name!, options.Api!.Secret, options.Authority!, context.HostingEnvironment);
 
-                    logger.LogInformation("[IDENTITY] Configuration found, enabling Identity. ApiName: {ApiName}, Authority: {Authority}", options?.Api?.Name, options?.Authority);
+                    logger.LogInformation(Properties.Resources.ConfigurationFoundMessage, options?.Api?.Name, options?.Authority);
                 }
                 else if (context.HostingEnvironment.IsDevelopment())
                 {
                     // Do nothing.
-                    logger.LogWarning("[IDENTITY] Invalid configuration specified, and running in Development. Identity will not be enabled. {Error}", JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
+                    logger.LogWarning(Properties.Resources.InvalidConfigurationMessage, JsonConvert.SerializeObject(isValid.Error, Formatting.Indented));
                 }
                 else
                 {
-                    throw new ErrorException(isValid.Error, "Identity configuration must be provided for non-Development applications.");
+                    throw new ErrorException(isValid.Error, Properties.Resources.ConfigurationRequiredMessage);
                 }
             }
         }
