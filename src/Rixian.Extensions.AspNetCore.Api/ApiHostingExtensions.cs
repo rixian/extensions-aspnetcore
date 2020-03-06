@@ -26,6 +26,7 @@ namespace Microsoft.Extensions.Hosting
 
             return webBuilder
                 .UseBasicExtensions(new ApiStartupBuilder())
+                .UseHeathEndpoints()
                 .UseOpenIdConnect()
                 .UseDataProtection()
                 .UseStackExchangeRedis();

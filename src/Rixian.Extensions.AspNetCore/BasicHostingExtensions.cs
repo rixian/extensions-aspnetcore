@@ -45,5 +45,21 @@ namespace Microsoft.Extensions.Hosting
                 .ConfigureServices(services => services.AddSingleton<StartupBuilder>(startupBuilder))
                 .UseBasicExtensions();
         }
+
+        /// <summary>
+        /// Adds the health endpoint services to the application.
+        /// </summary>
+        /// <param name="webBuilder">The WebHostBuilder.</param>
+        /// <returns>The updated WebHostBuilder.</returns>
+        public static IWebHostBuilder UseHeathEndpoints(this IWebHostBuilder webBuilder)
+        {
+            if (webBuilder is null)
+            {
+                throw new ArgumentNullException(nameof(webBuilder));
+            }
+
+            return webBuilder
+                .UseBasicExtensions(new Rixian.Extensions.AspNetCore.HealthServicesStartupBuilder());
+        }
     }
 }
