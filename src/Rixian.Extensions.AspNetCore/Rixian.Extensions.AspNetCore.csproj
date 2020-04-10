@@ -5,18 +5,17 @@
     <CodeAnalysisRuleSet>..\shipping.ruleset</CodeAnalysisRuleSet>
     <Description>Extensions for Asp.Net Core.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Configurations>Debug;Release;ProjRef</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)' != 'ProjRef'">
+  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
     <PackageReference Include="Rixian.Extensions.Errors" Version="0.2.9" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)' == 'ProjRef'">
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\..\extensions-errors\src\Rixian.Extensions.Errors\Rixian.Extensions.Errors.csproj" />
   </ItemGroup>
 
