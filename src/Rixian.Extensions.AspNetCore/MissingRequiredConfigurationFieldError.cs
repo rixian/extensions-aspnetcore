@@ -8,7 +8,7 @@ namespace Rixian.Extensions.AspNetCore
     /// <summary>
     /// Error used when a configuration field is missing.
     /// </summary>
-    public class MissingRequiredConfigurationFieldError : ErrorBase
+    public class MissingRequiredConfigurationFieldError : Error
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MissingRequiredConfigurationFieldError"/> class.

@@ -8,7 +8,7 @@ namespace Rixian.Extensions.AspNetCore
     /// <summary>
     /// Error used when a configuration section is missing.
     /// </summary>
-    public class MissingRequiredConfigurationSectionError : ErrorBase
+    public class MissingRequiredConfigurationSectionError : Error
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MissingRequiredConfigurationSectionError"/> class.

@@ -5,6 +5,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 {
     using System.Collections.Generic;
     using Rixian.Extensions.Errors;
+    using static Rixian.Extensions.Errors.Prelude;
 
     /// <summary>
     /// Configuration class for the OpenID Connect configuration.
@@ -32,38 +33,38 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
         /// <returns>An optional error result or nothing.</returns>
         public Result CheckRequiredValues()
         {
-            List<ErrorBase>? errors = null;
+            List<Error>? errors = null;
 
             if (string.IsNullOrWhiteSpace(this.Authority))
             {
-                errors ??= new List<ErrorBase>();
+                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.Authority)));
             }
 
             if (this.Api == null)
             {
-                errors ??= new List<ErrorBase>();
+                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.Api)));
             }
             else
             {
                 Result isApiValid = this.Api.CheckRequiredValues();
-                if (isApiValid.IsError)
+                if (isApiValid.IsFail)
                 {
-                    errors ??= new List<ErrorBase>();
+                    errors ??= new List<Error>();
                     errors.Add(isApiValid.Error);
                 }
             }
 
             if (errors != null)
             {
-                return new InvalidConfigurationError
+                return ErrorResult(new InvalidConfigurationError
                 {
                     Details = errors,
-                };
+                });
             }
 
-            return Result.Default;
+            return DefaultResult;
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
         public void EnsureRequiredValues()
         {
             Result isValid = this.CheckRequiredValues();
-            if (isValid.IsError)
+            if (isValid.IsFail)
             {
                 throw new ErrorException(isValid.Error);
             }

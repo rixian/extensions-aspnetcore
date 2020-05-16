@@ -10,6 +10,7 @@ namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
+    using Rixian.Extensions.Errors;
 
     /// <summary>
     /// Additional Redis startup services.

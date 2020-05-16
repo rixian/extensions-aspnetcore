@@ -5,6 +5,7 @@ namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
 {
     using System.Collections.Generic;
     using Rixian.Extensions.Errors;
+    using static Rixian.Extensions.Errors.Prelude;
 
     /// <summary>
     /// Configuration class for Redis.
@@ -27,23 +28,23 @@ namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
         /// <returns>An optional error result or nothing.</returns>
         public Result CheckRequiredValues()
         {
-            List<ErrorBase>? errors = null;
+            List<Error>? errors = null;
 
             if (string.IsNullOrWhiteSpace(this.Configuration))
             {
-                errors ??= new List<ErrorBase>();
+                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.Configuration)));
             }
 
             if (errors != null)
             {
-                return new InvalidConfigurationError
+                return ErrorResult(new InvalidConfigurationError
                 {
                     Details = errors,
-                };
+                });
             }
 
-            return Result.Default;
+            return DefaultResult;
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Rixian.Extensions.AspNetCore.StackExchangeRedis
         public void EnsureRequiredValues()
         {
             Result isValid = this.CheckRequiredValues();
-            if (isValid.IsError)
+            if (isValid.IsFail)
             {
                 throw new ErrorException(isValid.Error);
             }

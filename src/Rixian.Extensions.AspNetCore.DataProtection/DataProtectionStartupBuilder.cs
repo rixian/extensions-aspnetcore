@@ -10,6 +10,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
+    using Rixian.Extensions.Errors;
 
     /// <summary>
     /// Additional Data Protection startup services.

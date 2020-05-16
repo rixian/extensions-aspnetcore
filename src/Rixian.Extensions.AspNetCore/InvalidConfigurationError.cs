@@ -8,7 +8,7 @@ namespace Rixian.Extensions.AspNetCore
     /// <summary>
     /// Error used when configuration is invalid.
     /// </summary>
-    public class InvalidConfigurationError : ErrorBase
+    public class InvalidConfigurationError : Error
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidConfigurationError"/> class.

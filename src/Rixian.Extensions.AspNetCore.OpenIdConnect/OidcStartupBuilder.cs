@@ -13,6 +13,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Logging;
     using Newtonsoft.Json;
+    using Rixian.Extensions.Errors;
 
     /// <summary>
     /// Additional OpenID Connect startup services.
