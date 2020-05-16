@@ -1,9 +1,7 @@
-parameters:
-  windowsPool: Hosted Windows 2019 with VS2019
-
 jobs:
 - job: Windows
-  pool: ${{ parameters.windowsPool }}
+  pool:
+    vmImage: windows-latest
   steps:
   - checkout: self
     clean: true
@@ -16,7 +14,7 @@ jobs:
 
 - job: Linux
   pool:
-    vmImage: Ubuntu 16.04
+    vmImage: ubuntu-latest
   steps:
   - checkout: self
     clean: true
@@ -25,7 +23,7 @@ jobs:
 
 - job: macOS
   pool:
-    vmImage: macOS 10.13
+    vmImage: macOS-latest
   steps:
   - checkout: self
     clean: true
@@ -38,7 +36,7 @@ jobs:
   - Linux
   - macOS
   pool:
-    vmImage: Ubuntu 16.04
+    vmImage: ubuntu-latest
   condition: succeededOrFailed()
   steps:
   - checkout: self

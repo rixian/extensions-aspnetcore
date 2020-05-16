@@ -5,6 +5,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
 {
     using System.Collections.Generic;
     using Rixian.Extensions.Errors;
+    using static Rixian.Extensions.Errors.Prelude;
 
     /// <summary>
     /// Configuration class for DataProtection.
@@ -32,35 +33,35 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         /// <returns>An optional error result or nothing.</returns>
         public Result CheckRequiredValues()
         {
-            List<ErrorBase>? errors = null;
+            List<Error>? errors = null;
 
             if (string.IsNullOrWhiteSpace(this.ApplicationDiscriminator))
             {
-                errors ??= new List<ErrorBase>();
+                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ApplicationDiscriminator)));
             }
 
             if (string.IsNullOrWhiteSpace(this.AzureStorage))
             {
-                errors ??= new List<ErrorBase>();
+                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.AzureStorage)));
             }
 
             if (this.KeyRing == null)
             {
-                errors ??= new List<ErrorBase>();
+                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.KeyRing)));
             }
 
             if (errors != null)
             {
-                return new InvalidConfigurationError
+                return ErrorResult(new InvalidConfigurationError
                 {
                     Details = errors,
-                };
+                });
             }
 
-            return Result.Default;
+            return DefaultResult;
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         public void EnsureRequiredValues()
         {
             Result isValid = this.CheckRequiredValues();
-            if (isValid.IsError)
+            if (isValid.IsFail)
             {
                 throw new ErrorException(isValid.Error);
             }

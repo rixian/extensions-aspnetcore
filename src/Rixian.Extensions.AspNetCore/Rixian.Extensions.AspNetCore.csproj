@@ -9,14 +9,7 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
-    <PackageReference Include="Rixian.Extensions.Errors" Version="0.2.9" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\..\..\extensions-errors\src\Rixian.Extensions.Errors\Rixian.Extensions.Errors.csproj" />
+    <PackageReference Include="Rixian.Extensions.Errors" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
