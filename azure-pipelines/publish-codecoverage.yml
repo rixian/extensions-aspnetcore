@@ -23,8 +23,10 @@ steps:
     $Inputs = [string]::join(';', ($reports |% { Resolve-Path -relative $_ }))
     obj/reportgenerator -reports:"$Inputs" -targetdir:coveragereport -reporttypes:Cobertura
   displayName: Merge coverage
+  continueOnError: true
 - task: PublishCodeCoverageResults@1
   displayName: Publish code coverage results to Azure DevOps
+  continueOnError: true
   inputs:
     codeCoverageTool: cobertura
     summaryFileLocation: 'coveragereport/Cobertura.xml'
