@@ -48,8 +48,8 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
 
                 if (isValid.IsSuccess)
                 {
-                    this.AddHealthCheckServices(services, logger, options.Authority!, options.AuthorityHealthEndpoint);
-                    this.AddAuthenticationServices(services, logger, options.Api!.Name!, options.Api!.Secret, options.Authority!, context.HostingEnvironment);
+                    AddHealthCheckServices(services, logger, options.Authority!, options.AuthorityHealthEndpoint);
+                    AddAuthenticationServices(services, logger, options.Api!.Name!, options.Api!.Secret, options.Authority!, context.HostingEnvironment);
 
                     logger.LogInformation(Properties.Resources.ConfigurationFoundMessage, options?.Api?.Name, options?.Authority);
                 }
@@ -65,7 +65,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
             }
         }
 
-        private void AddHealthCheckServices(IServiceCollection services, ILogger logger, string authority, string? healthEndpoint = null)
+        private static void AddHealthCheckServices(IServiceCollection services, ILogger logger, string authority, string? healthEndpoint = null)
         {
             healthEndpoint ??= "/.well-known/openid-configuration";
             var endpointUri = new Uri(new Uri(authority), healthEndpoint);
@@ -75,7 +75,7 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 .AddUrlGroup(endpointUri, "oidc", tags: new[] { "services" });
         }
 
-        private void AddAuthenticationServices(IServiceCollection services, ILogger logger, string apiName, string? apiSecret, string authority, IWebHostEnvironment hostEnvironment)
+        private static void AddAuthenticationServices(IServiceCollection services, ILogger logger, string apiName, string? apiSecret, string authority, IWebHostEnvironment hostEnvironment)
         {
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
