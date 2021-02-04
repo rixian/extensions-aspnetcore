@@ -1,31 +1,31 @@
 ﻿// Copyright (c) Rixian. All rights reserved.
-// Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
+// Licensed under the Apache License, Version 2.0 license.
 
-namespace Rixian.Extensions.AspNetCore.OpenIdConnect
+namespace Rixian.Extensions.AspNetCore
 {
     using System.Collections.Generic;
     using Rixian.Extensions.Errors;
     using static Rixian.Extensions.Errors.Prelude;
 
     /// <summary>
-    /// Configuration class for the OpenID Connect configuration.
+    /// Configuration class for DataProtection.
     /// </summary>
-    public class OpenIdConnectConfig
+    public class DataProtectionConfig
     {
         /// <summary>
-        /// Gets or sets the OpenID Connect authority.
+        /// Gets or sets the application discriminator.
         /// </summary>
-        public string? Authority { get; set; }
+        public string? ApplicationDiscriminator { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional custom health endpoint.
+        /// Gets or sets the Azure Storage connection string.
         /// </summary>
-        public string? AuthorityHealthEndpoint { get; set; }
+        public string? AzureStorage { get; set; }
 
         /// <summary>
-        /// Gets or sets the api configuration.
+        /// Gets or sets the data protection key ring values.
         /// </summary>
-        public OpenIdConnectApiConfig? Api { get; set; }
+        public KeyRingConfig? KeyRing { get; set; }
 
         /// <summary>
         /// Checks if all the required configuration values are present.
@@ -35,25 +35,22 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
         {
             List<Error>? errors = null;
 
-            if (string.IsNullOrWhiteSpace(this.Authority))
+            if (string.IsNullOrWhiteSpace(this.ApplicationDiscriminator))
             {
                 errors ??= new List<Error>();
-                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.Authority)));
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ApplicationDiscriminator)));
             }
 
-            if (this.Api == null)
+            if (string.IsNullOrWhiteSpace(this.AzureStorage))
             {
                 errors ??= new List<Error>();
-                errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.Api)));
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.AzureStorage)));
             }
-            else
+
+            if (this.KeyRing == null)
             {
-                Result isApiValid = this.Api.CheckRequiredValues();
-                if (isApiValid.IsFail)
-                {
-                    errors ??= new List<Error>();
-                    errors.Add(isApiValid.Error);
-                }
+                errors ??= new List<Error>();
+                errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.KeyRing)));
             }
 
             if (errors != null)
@@ -78,14 +75,5 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 throw new ErrorException(isValid.Error);
             }
         }
-    }
-
-
-    public class IdentityConfig
-    {
-        public string Authority { get; set; }
-        public string ClientId { get; set; }
-        public string ClientSecret { get; set; }
-        public string Scope { get; set; }
     }
 }

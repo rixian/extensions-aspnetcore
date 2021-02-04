@@ -1,16 +1,12 @@
 ﻿// Copyright (c) Rixian. All rights reserved.
 // Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
 
-namespace Rixian.Extensions.AspNetCore.DataProtection
+namespace Rixian.Extensions.AspNetCore
 {
     using System;
     using Microsoft.AspNetCore.DataProtection;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
-    using Rixian.Extensions.Errors;
 
     /// <summary>
     /// Extensions for registering Data Protection services.
@@ -33,32 +29,32 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         {
             if (string.IsNullOrWhiteSpace(appDiscriminator))
             {
-                throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(appDiscriminator));
+                throw new System.ArgumentException("A value must be provided.", nameof(appDiscriminator));
             }
 
             if (string.IsNullOrWhiteSpace(blobConnectionString))
             {
-                throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(blobConnectionString));
+                throw new System.ArgumentException("A value must be provided.", nameof(blobConnectionString));
             }
 
             if (string.IsNullOrWhiteSpace(keyName))
             {
-                throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(keyName));
+                throw new System.ArgumentException("A value must be provided.", nameof(keyName));
             }
 
             if (keyIdentifier == null)
             {
-                throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(keyIdentifier));
+                throw new System.ArgumentException("A value must be provided.", nameof(keyIdentifier));
             }
 
             if (string.IsNullOrWhiteSpace(clientId))
             {
-                throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(clientId));
+                throw new System.ArgumentException("A value must be provided.", nameof(clientId));
             }
 
             if (string.IsNullOrWhiteSpace(clientSecret))
             {
-                throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(clientSecret));
+                throw new System.ArgumentException("A value must be provided.", nameof(clientSecret));
             }
 
             // See: https://docs.microsoft.com/en-us/rest/api/storageservices/Naming-and-Referencing-Containers--Blobs--and-Metadata#container-names
@@ -115,7 +111,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
 
             if (options.KeyRing == null)
             {
-                throw new System.ArgumentOutOfRangeException(nameof(options), Properties.Resources.MissingKeyRingErrorMessage);
+                throw new System.ArgumentOutOfRangeException(nameof(options), "KeyRing must be provided.");
             }
 
             services.AddFullDataProtection(

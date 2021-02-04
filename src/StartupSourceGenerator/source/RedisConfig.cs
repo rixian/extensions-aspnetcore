@@ -1,31 +1,26 @@
 ﻿// Copyright (c) Rixian. All rights reserved.
 // Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
 
-namespace Rixian.Extensions.AspNetCore.OpenIdConnect
+namespace Rixian.Extensions.AspNetCore
 {
     using System.Collections.Generic;
     using Rixian.Extensions.Errors;
     using static Rixian.Extensions.Errors.Prelude;
 
     /// <summary>
-    /// Configuration class for the OpenID Connect configuration.
+    /// Configuration class for Redis.
     /// </summary>
-    public class OpenIdConnectConfig
+    public class RedisConfig
     {
         /// <summary>
-        /// Gets or sets the OpenID Connect authority.
+        /// Gets or sets the Redis configuration information, a.k.a. the connection string.
         /// </summary>
-        public string? Authority { get; set; }
+        public string? Configuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional custom health endpoint.
+        /// Gets or sets the instance name of the service connecting to Redis. Optional.
         /// </summary>
-        public string? AuthorityHealthEndpoint { get; set; }
-
-        /// <summary>
-        /// Gets or sets the api configuration.
-        /// </summary>
-        public OpenIdConnectApiConfig? Api { get; set; }
+        public string? InstanceName { get; set; }
 
         /// <summary>
         /// Checks if all the required configuration values are present.
@@ -35,25 +30,10 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
         {
             List<Error>? errors = null;
 
-            if (string.IsNullOrWhiteSpace(this.Authority))
+            if (string.IsNullOrWhiteSpace(this.Configuration))
             {
                 errors ??= new List<Error>();
-                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.Authority)));
-            }
-
-            if (this.Api == null)
-            {
-                errors ??= new List<Error>();
-                errors.Add(new MissingRequiredConfigurationSectionError(nameof(this.Api)));
-            }
-            else
-            {
-                Result isApiValid = this.Api.CheckRequiredValues();
-                if (isApiValid.IsFail)
-                {
-                    errors ??= new List<Error>();
-                    errors.Add(isApiValid.Error);
-                }
+                errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.Configuration)));
             }
 
             if (errors != null)
@@ -78,14 +58,5 @@ namespace Rixian.Extensions.AspNetCore.OpenIdConnect
                 throw new ErrorException(isValid.Error);
             }
         }
-    }
-
-
-    public class IdentityConfig
-    {
-        public string Authority { get; set; }
-        public string ClientId { get; set; }
-        public string ClientSecret { get; set; }
-        public string Scope { get; set; }
     }
 }

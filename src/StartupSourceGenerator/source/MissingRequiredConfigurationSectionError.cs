@@ -3,7 +3,6 @@
 
 namespace Rixian.Extensions.AspNetCore
 {
-    using Microsoft.AspNetCore.Routing;
     using Rixian.Extensions.Errors;
 
     /// <summary>
@@ -18,7 +17,7 @@ namespace Rixian.Extensions.AspNetCore
         public MissingRequiredConfigurationSectionError(string sectionPath)
         {
             this.Code = "MissingRequiredConfiguratioSection";
-            this.Message = Properties.Resources.MissingRequiredConfigurationSectionErrorMessage;
+            this.Message = "A required configuration section missing.";
             this.Target = sectionPath;
         }
     }

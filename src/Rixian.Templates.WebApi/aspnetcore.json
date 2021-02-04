@@ -1,0 +1,6 @@
+{
+  "enableWebApi": true,
+  "enableDataProtection": true,
+  "enableRedis": true,
+  "enableOAuth2": true
+}
