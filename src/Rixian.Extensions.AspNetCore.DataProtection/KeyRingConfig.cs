@@ -44,7 +44,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         /// <returns>An optional error result or nothing.</returns>
         public Result CheckRequiredValues()
         {
-            List<Error>? errors = null;
+            List<Error>? errors = new List<Error>();
 
             if (string.IsNullOrWhiteSpace(this.KeyName))
             {

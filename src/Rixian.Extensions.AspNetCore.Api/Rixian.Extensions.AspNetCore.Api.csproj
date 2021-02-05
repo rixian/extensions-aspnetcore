@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <CodeAnalysisRuleSet>..\shipping.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\shipping.ruleset</CodeAnalysisRuleSet>
     <Description>Extensions for configuring an Api on Asp.Net Core.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>

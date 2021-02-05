@@ -5,7 +5,7 @@
     <IsPackable>false</IsPackable>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <CodeAnalysisRuleSet>..\tests.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\tests.ruleset</CodeAnalysisRuleSet>
     <RootNamespace />
   </PropertyGroup>
 

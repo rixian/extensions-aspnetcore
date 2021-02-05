@@ -1,7 +1,10 @@
+parameters:
+  windowsPool: Hosted Windows 2019 with VS2019
+  includeMacOS:
+
 jobs:
 - job: Windows
-  pool:
-    vmImage: windows-latest
+  pool: ${{ parameters.windowsPool }}
   steps:
   - checkout: self
     clean: true
@@ -11,24 +14,28 @@ jobs:
     displayName: Set build number
 
   - template: dotnet.yml
+  - template: expand-template.yml
 
 - job: Linux
   pool:
-    vmImage: ubuntu-latest
+    vmImage: Ubuntu 18.04
   steps:
   - checkout: self
     clean: true
   - template: install-dependencies.yml
   - template: dotnet.yml
+  - template: expand-template.yml
 
 - job: macOS
+  condition: ${{ parameters.includeMacOS }}
   pool:
-    vmImage: macOS-latest
+    vmImage: macOS-10.15
   steps:
   - checkout: self
     clean: true
   - template: install-dependencies.yml
   - template: dotnet.yml
+  - template: expand-template.yml
 
 - job: WrapUp
   dependsOn:
@@ -36,7 +43,7 @@ jobs:
   - Linux
   - macOS
   pool:
-    vmImage: ubuntu-latest
+    vmImage: Ubuntu 18.04
   condition: succeededOrFailed()
   steps:
   - checkout: self
@@ -45,4 +52,6 @@ jobs:
     parameters:
       initArgs: -NoRestore
   - template: publish-codecoverage.yml
+    parameters:
+      includeMacOS: ${{ parameters.includeMacOS }}
   - template: publish-deployables.yml
