@@ -30,9 +30,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Api", "Rixian.Extensions.AspNetCore.Api\Rixian.Extensions.AspNetCore.Api.csproj", "{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartupSourceGenerator", "StartupSourceGenerator\StartupSourceGenerator.csproj", "{11342394-FD99-4BB2-9386-74EE4B69F862}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_demo", "_demo", "{9118273F-85CA-45D6-B9D3-36219D22A747}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Templates.WebApi", "Rixian.Templates.WebApi\Rixian.Templates.WebApi.csproj", "{26E2C81A-FB5D-4DDC-AE8D-EE79AE8E1E29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Demo.BasicWebApi", "..\demo\Rixian.Extensions.AspNetCore.Demo.BasicWebApi\Rixian.Extensions.AspNetCore.Demo.BasicWebApi.csproj", "{C7DA8B24-B2C3-4282-9AE5-43C9D1E7A367}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Demo.BasicRazorPage", "..\demo\Rixian.Extensions.AspNetCore.Demo.BasicRazorPage\Rixian.Extensions.AspNetCore.Demo.BasicRazorPage.csproj", "{5DCF26E3-E855-4E4F-BA98-D23BFDF2FB54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Generators", "Rixian.Extensions.AspNetCore.Generators\Rixian.Extensions.AspNetCore.Generators.csproj", "{8AB137F4-EF30-417B-A75B-5DB23E49B05C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rixian.Extensions.AspNetCore.Demo.CompleteRazorPage", "..\demo\Rixian.Extensions.AspNetCore.Demo.CompleteRazorPage\Rixian.Extensions.AspNetCore.Demo.CompleteRazorPage.csproj", "{6B8C980B-37F3-4FD7-AC03-EF3EA3C163B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,17 +74,30 @@ Global
 		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11342394-FD99-4BB2-9386-74EE4B69F862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11342394-FD99-4BB2-9386-74EE4B69F862}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11342394-FD99-4BB2-9386-74EE4B69F862}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11342394-FD99-4BB2-9386-74EE4B69F862}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26E2C81A-FB5D-4DDC-AE8D-EE79AE8E1E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26E2C81A-FB5D-4DDC-AE8D-EE79AE8E1E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26E2C81A-FB5D-4DDC-AE8D-EE79AE8E1E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26E2C81A-FB5D-4DDC-AE8D-EE79AE8E1E29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7DA8B24-B2C3-4282-9AE5-43C9D1E7A367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7DA8B24-B2C3-4282-9AE5-43C9D1E7A367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7DA8B24-B2C3-4282-9AE5-43C9D1E7A367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7DA8B24-B2C3-4282-9AE5-43C9D1E7A367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DCF26E3-E855-4E4F-BA98-D23BFDF2FB54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DCF26E3-E855-4E4F-BA98-D23BFDF2FB54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DCF26E3-E855-4E4F-BA98-D23BFDF2FB54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DCF26E3-E855-4E4F-BA98-D23BFDF2FB54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB137F4-EF30-417B-A75B-5DB23E49B05C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB137F4-EF30-417B-A75B-5DB23E49B05C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB137F4-EF30-417B-A75B-5DB23E49B05C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB137F4-EF30-417B-A75B-5DB23E49B05C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B8C980B-37F3-4FD7-AC03-EF3EA3C163B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B8C980B-37F3-4FD7-AC03-EF3EA3C163B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B8C980B-37F3-4FD7-AC03-EF3EA3C163B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B8C980B-37F3-4FD7-AC03-EF3EA3C163B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C7DA8B24-B2C3-4282-9AE5-43C9D1E7A367} = {9118273F-85CA-45D6-B9D3-36219D22A747}
+		{5DCF26E3-E855-4E4F-BA98-D23BFDF2FB54} = {9118273F-85CA-45D6-B9D3-36219D22A747}
+		{6B8C980B-37F3-4FD7-AC03-EF3EA3C163B9} = {9118273F-85CA-45D6-B9D3-36219D22A747}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3944F6A-384B-4B0F-B93F-3BD513DC57BD}
