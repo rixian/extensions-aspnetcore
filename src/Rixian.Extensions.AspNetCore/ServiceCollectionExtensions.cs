@@ -9,6 +9,9 @@ namespace Microsoft.Extensions.DependencyInjection
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.AspNetCore.Mvc;
 
+    /// <summary>
+    /// Basic extensions for IServiceCollection for AspNet Core.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>

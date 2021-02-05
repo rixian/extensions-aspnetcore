@@ -16,7 +16,7 @@ namespace Rixian.Extensions.AspNetCore.Demo.BasicRazorPage.Pages
 
         public PrivacyModel(ILogger<PrivacyModel> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
         public void OnGet()

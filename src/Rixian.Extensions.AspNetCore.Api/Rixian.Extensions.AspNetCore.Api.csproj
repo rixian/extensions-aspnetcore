@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rixian.Extensions.AspNetCore.DataProtection\Rixian.Extensions.AspNetCore.DataProtection.csproj" />
-    <ProjectReference Include="..\Rixian.Extensions.AspNetCore.OpenIdConnect\Rixian.Extensions.AspNetCore.OpenIdConnect.csproj" />
-    <ProjectReference Include="..\Rixian.Extensions.AspNetCore.StackExchangeRedis\Rixian.Extensions.AspNetCore.StackExchangeRedis.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Rixian. All rights reserved.
 // Licensed under the Apache License, Version 2.0 license.
 
+#nullable enable
 namespace Rixian.Extensions.AspNetCore
 {
     using System;

@@ -9,18 +9,27 @@ namespace Rixian.Extensions.AspNetCore.Generators
     using System.Text;
     using System.Text.RegularExpressions;
 
-    public static class TokenizedStringReplacer
+    /// <summary>
+    /// Replaces tokenized values of the form #{TOKEN_NAME}# with a specified value.
+    /// </summary>
+    internal static class TokenizedStringReplacer
     {
-        public static Regex regex = new Regex(@"(?<full>\#{(?<token>.+)}\#)", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+        private static Regex regex = new Regex(@"(?<full>\#{(?<token>.+)}\#)", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
+        /// <summary>
+        /// replaces tokens with values.
+        /// </summary>
+        /// <param name="tokenizedString">The tokenized string.</param>
+        /// <param name="tokenValues">The token values to replace.</param>
+        /// <returns>The final string.</returns>
         public static string Replace(this string tokenizedString, IEnumerable<KeyValuePair<string, string>> tokenValues)
         {
-            foreach (var token in tokenValues)
+            foreach (KeyValuePair<string, string> token in tokenValues)
             {
                 tokenizedString = tokenizedString.Replace($"#{{{token.Key}}}#", token.Value);
             }
 
-            var res = regex.Matches(tokenizedString);
+            MatchCollection? res = regex.Matches(tokenizedString);
 
             var tokenGroups = res.Cast<Match>()
                 .Select(m => (m.Groups["full"], m.Groups["token"]))

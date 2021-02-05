@@ -1,11 +1,17 @@
-﻿// See: https://www.thinktecture.com/en/identity/samesite/prepare-your-identityserver/
+﻿#pragma warning disable SA1636 // File header copyright text should match
+// See: https://www.thinktecture.com/en/identity/samesite/prepare-your-identityserver/
 
+#nullable enable
 namespace Microsoft.Extensions.DependencyInjection
+#pragma warning restore SA1636 // File header copyright text should match
 {
     using System;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
 
+    /// <summary>
+    /// Extensions for handling SameSite cookies.
+    /// </summary>
     public static class SameSiteCookiesServiceCollectionExtensions
     {
         /// <summary>
@@ -44,6 +50,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </remarks>
         /// <param name="services">The service collection to register <see cref="CookiePolicyOptions" /> into.</param>
         /// <returns>The modified <see cref="IServiceCollection" />.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1629:Documentation text should end with a period", Justification = "Non-compliant source.")]
         public static IServiceCollection ConfigureNonBreakingSameSiteCookies(this IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -84,6 +91,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </remarks>
         /// <param name="userAgent">The user agent string to check.</param>
         /// <returns>Whether the specified user agent (browser) accepts SameSite=None or not.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1629:Documentation text should end with a period", Justification = "Non-compliant code.")]
         private static bool DisallowsSameSiteNone(string userAgent)
         {
             // Cover all iOS based browsers here. This includes:

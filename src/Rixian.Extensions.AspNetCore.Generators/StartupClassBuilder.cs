@@ -7,8 +7,17 @@ namespace Rixian.Extensions.AspNetCore.Generators
     using System.Collections.Generic;
     using System.Text;
 
+    /// <summary>
+    /// Generates the Startup class.
+    /// </summary>
     internal class StartupClassBuilder
     {
+        /// <summary>
+        /// Generates the Startup class.
+        /// </summary>
+        /// <param name="options">The configuration options for the Startup class.</param>
+        /// <returns>The string representation of the Startup class.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1513:Closing brace should be followed by blank line", Justification = "Code generator.")]
         public static string Generate(StartupOptions options)
         {
             var sb = new StringBuilder();
@@ -51,7 +60,7 @@ namespace Rixian.Extensions.AspNetCore
             Environment = environment;
             Options = Configuration.Get<GlobalConfig>();
 
-            {(options.EnableOAuth2 == false ? "" : "System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();")}
+            {(options.EnableOAuth2 == false ? string.Empty : "System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();")}
         }}
 
         public IConfiguration Configuration {{ get; }}
@@ -72,7 +81,7 @@ namespace Rixian.Extensions.AspNetCore
                 options.KnownProxies.Clear();
             }});
             
-            {(options.EnableWebApi == false ? "" : @"
+            {(options.EnableWebApi == false ? string.Empty : @"
             Rixian.Extensions.AspNetCore.ApiConfig? apiOptions = this.Options.Api;
             DateTime? defaultVersion = null;
             if (apiOptions == null)
@@ -101,7 +110,7 @@ namespace Rixian.Extensions.AspNetCore
                         // o.SubstituteApiVersionInUrl = true;
                     }});")}
 
-            {(options.EnableRazorPages == false ? "" : @"
+            {(options.EnableRazorPages == false ? string.Empty : @"
             services.ConfigureNonBreakingSameSiteCookies();
 
             services.AddRouting(o => o.LowercaseUrls = true);
@@ -135,7 +144,7 @@ namespace Rixian.Extensions.AspNetCore
             // AUTH
             services.AddAuthorization();
 
-            {(options.EnableWebApi == false ? "" : @"
+            {(options.EnableWebApi == false ? string.Empty : @"
             services
                 // API VERSIONING
                 .AddApiVersioning(o =>
@@ -152,17 +161,17 @@ namespace Rixian.Extensions.AspNetCore
                     o.ReportApiVersions = true;
                 });")}
 
-            {(options.EnableRazorPages == false ? "" : @"
+            {(options.EnableRazorPages == false ? string.Empty : @"
             services.AddRazorPages(o =>
             {
                 o.Conventions.Add(new PageRouteTransformerConvention(new SlugifyParameterTransformer()));
             });")}
 
-            {(options.EnableDataProtection == false ? "" : @"
+            {(options.EnableDataProtection == false ? string.Empty : @"
             services.AddFullDataProtection(this.Options.DataProtection);")}
 
 
-            {(options.EnableRedis == false ? "" : @"
+            {(options.EnableRedis == false ? string.Empty : @"
             // Redis
             RedisConfig redisOptions = this.Options.Redis;
             if (redisOptions == null)
@@ -203,7 +212,7 @@ namespace Rixian.Extensions.AspNetCore
             }
             // ===============")}
 
-            {(options.EnableOAuth2 == false ? "" : @"
+            {(options.EnableOAuth2 == false ? string.Empty : @"
             // OAuth2
             OAuth2Config oauth2Options = this.Options.OAuth2;
             if (oauth2Options == null)
@@ -282,7 +291,7 @@ namespace Rixian.Extensions.AspNetCore
             }
             // ===============")}
 
-            {(options.EnableOpenIdConnect == false ? "" : @"
+            {(options.EnableOpenIdConnect == false ? string.Empty : @"
             // OpenID Connect
             OpenIdConnectConfig? identityOptions = this.Options.OpenIdConnect;
             services
@@ -363,7 +372,7 @@ namespace Rixian.Extensions.AspNetCore
 
             app.UseHttpsRedirection();
 
-            {(options.EnableRazorPages == false ? "" : @"
+            {(options.EnableRazorPages == false ? string.Empty : @"
             app.UseStaticFiles();")}
 
             app.UseRouting();
@@ -371,7 +380,7 @@ namespace Rixian.Extensions.AspNetCore
             app.UseCors(""AllowAllOrigins"");
             app.UseAuthentication();
 
-            {(options.EnableOAuth2 == false && options.EnableOpenIdConnect == false ? "" : @"
+            {(options.EnableOAuth2 == false && options.EnableOpenIdConnect == false ? string.Empty : @"
             app.UseAuthorization();")}
 
             app.UseHealthChecks(""/self"", new HealthCheckOptions
@@ -409,7 +418,7 @@ namespace Rixian.Extensions.AspNetCore
             {{
                 endpoints.MapControllers();
 
-            {(options.EnableRazorPages == false ? "" : @"
+            {(options.EnableRazorPages == false ? string.Empty : @"
                 endpoints.MapRazorPages();")}
             }});
         }}
@@ -421,7 +430,6 @@ namespace Rixian.Extensions.AspNetCore
 
             return sb.ToString();
         }
-
 
         private static string GetGlobalConfigClass(StartupOptions options)
         {
@@ -435,18 +443,22 @@ namespace Rixian.Extensions.AspNetCore
             {
                 sb.AppendLine("        public Rixian.Extensions.AspNetCore.DataProtectionConfig DataProtection { get; set; }");
             }
+
             if (options.EnableWebApi)
             {
                 sb.AppendLine("        public Rixian.Extensions.AspNetCore.ApiConfig Api { get; set; }");
             }
+
             if (options.EnableOAuth2)
             {
                 sb.AppendLine("        public Rixian.Extensions.AspNetCore.OAuth2Config OAuth2 { get; set; }");
             }
+
             if (options.EnableRedis)
             {
                 sb.AppendLine("        public Rixian.Extensions.AspNetCore.RedisConfig Redis { get; set; }");
             }
+
             if (options.EnableOpenIdConnect)
             {
                 sb.AppendLine("        public Rixian.Extensions.AspNetCore.OpenIdConnectConfig OpenIdConnect { get; set; }");

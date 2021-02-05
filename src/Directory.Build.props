@@ -16,13 +16,13 @@
     <Authors>Rixian</Authors>
     <Copyright>© Rixian LLC. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageIconUrl>https://storagerixiannet.blob.core.windows.net/public/nuget/icons/nuget-rixian-256.png</PackageIconUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PackageIcon>$(MSBuildThisFileDirectory)nuget-128.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,5 +35,9 @@
 
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)nuget-128.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@ namespace Rixian.Extensions.AspNetCore.Demo.CompleteRazorPage.Controllers
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
         [HttpGet]

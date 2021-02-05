@@ -14,7 +14,7 @@ namespace Rixian.Extensions.AspNetCore.Demo.BasicRazorPage
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
             : base(configuration, environment)
-        {
+        {AuthInfoHelper
             //Microsoft.Extensions.DependencyInjection.ApplicationBuilderExtensions
         }
     }

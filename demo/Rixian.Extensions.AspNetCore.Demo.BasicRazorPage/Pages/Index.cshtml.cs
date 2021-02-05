@@ -14,7 +14,7 @@ namespace Rixian.Extensions.AspNetCore.Demo.BasicRazorPage.Pages
 
         public IndexModel(ILogger<IndexModel> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
         public void OnGet()
