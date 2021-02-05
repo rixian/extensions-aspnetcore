@@ -10,6 +10,7 @@ namespace Rixian.Extensions.AspNetCore.Generators
     using System.Text;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Text;
 
     /// <summary>
@@ -28,8 +29,12 @@ namespace Rixian.Extensions.AspNetCore.Generators
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.EnableRazorPages", out var enableRazorPages);
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.EnableOpenIdConnect", out var enableOpenIdConnect);
 
+            NameSyntax? nameSyntax = context.Compilation.SyntaxTrees?.FirstOrDefault()?.GetRoot()?.DescendantNodes()?.OfType<NamespaceDeclarationSyntax>()?.FirstOrDefault()?.Name;
+            string namespaceName = nameSyntax?.NormalizeWhitespace()?.ToFullString() ?? "Rixian.Extensions.AspNetCore";
+
             var options = new StartupOptions
             {
+                Namespace = namespaceName,
                 EnableDataProtection = enableDataProtection is object,
                 EnableWebApi = enableWebApi is object,
                 EnableRedis = enableRedis is object,
@@ -43,7 +48,7 @@ namespace Rixian.Extensions.AspNetCore.Generators
                 context.AddSource(filename, SourceText.From(text, Encoding.UTF8));
             }
 
-            AddSource("BaseStartup", StartupClassBuilder.Generate(options));
+            AddSource("Startup.partial", StartupClassBuilder.Generate(options));
             AddSource("MissingRequiredConfigurationFieldError", Sources.MissingRequiredConfigurationFieldError());
             AddSource("MissingRequiredConfigurationSectionError", Sources.MissingRequiredConfigurationSectionError());
             AddSource("InvalidConfigurationError", Sources.InvalidConfigurationError());

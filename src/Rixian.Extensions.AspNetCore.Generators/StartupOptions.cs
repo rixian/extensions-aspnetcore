@@ -6,6 +6,8 @@ namespace Rixian.Extensions.AspNetCore.Generators
     [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Internal class.")]
     internal class StartupOptions
     {
+        public string? Namespace { get; set; }
+
         public bool EnableWebApi { get; set; }
 
         public bool EnableRazorPages { get; set; }
