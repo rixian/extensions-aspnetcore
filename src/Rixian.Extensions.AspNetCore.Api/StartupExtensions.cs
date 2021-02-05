@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// Extensions for registering api methods with the dependency injection container.
     /// </summary>
-    internal static class StartupExtensions
+    public static class StartupExtensions
     {
         /// <summary>
         /// Adds the Api Explorer to the DI container.
@@ -33,57 +33,6 @@ namespace Microsoft.Extensions.DependencyInjection
                         // can also be used to control the format of the API version in route templates
                         // options.SubstituteApiVersionInUrl = true;
                     });
-
-            return services;
-        }
-
-        /// <summary>
-        /// Adds the Mvc and Json services to the DI container.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <returns>The updated service collection.</returns>
-        public static IServiceCollection AddMvcServices(this IServiceCollection services)
-        {
-            services
-                .AddControllers()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddJsonOptions(o =>
-                {
-                    o.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                    o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
-
-            return services;
-        }
-
-        /// <summary>
-        /// Adds the CORS to the DI container.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <returns>The updated service collection.</returns>
-        public static IServiceCollection AddCorsServices(this IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(Rixian.Extensions.AspNetCore.Api.Constants.CorsAllowAllOrigins, builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
-
-            return services;
-        }
-
-        /// <summary>
-        /// Adds the Authorization services to the DI container.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <returns>The updated service collection.</returns>
-        public static IServiceCollection AddAuthorizationServices(this IServiceCollection services)
-        {
-            services.AddAuthorization();
 
             return services;
         }

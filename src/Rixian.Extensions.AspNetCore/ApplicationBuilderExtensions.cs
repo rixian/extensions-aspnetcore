@@ -3,12 +3,13 @@
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    using System.Collections.Generic;
+    using System;
+    using System.Linq;
+    using System.Net.Mime;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Hosting;
-    using Rixian.Extensions.AspNetCore;
+    using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
 
     /// <summary>
     /// Helper extensions for IApplicationBuilder.
@@ -16,66 +17,72 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ApplicationBuilderExtensions
     {
         /// <summary>
-        /// Configures the IApplication builder with basic values.
+        /// Forces the incoming request to appear to use the 'https' scheme.
+        /// This is important for applications that are behind a reverse proxy that performs SSL offloading.
         /// </summary>
         /// <param name="app">The IApplicationBuilder.</param>
-        /// <param name="configuration">The configuration.</param>
-        /// <param name="environment">The web host environment.</param>
         /// <returns>The updated IApplicationBuilder.</returns>
-        public static IApplicationBuilder ConfigureApplicationBuilder(this IApplicationBuilder app, IConfiguration configuration, IWebHostEnvironment environment)
+        public static IApplicationBuilder UseHttpsScheme(this IApplicationBuilder app)
         {
-            if (app is null)
+            app.Use((context, next) =>
             {
-                throw new System.ArgumentNullException(nameof(app));
-            }
+                context.Request.Scheme = "https";
+                return next();
+            });
 
-            IEnumerable<StartupBuilder> startupBuilders = app.ApplicationServices.GetRequiredService<IEnumerable<StartupBuilder>>();
+            return app;
+        }
 
-            if (environment.IsDevelopment())
+        /// <summary>
+        /// Adds the health check endpoint at the path "/self" for all checks named "self".
+        /// </summary>
+        /// <param name="app">The IApplicationBuilder.</param>
+        /// <param name="path">The path to use for this health check.</param>
+        /// <returns>The updated IApplicationBuilder.</returns>
+        public static IApplicationBuilder UseSelfHealthEndpoint(this IApplicationBuilder app, string path = "/self")
+        {
+            app.UseHealthChecks(path, new HealthCheckOptions
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-                app.UseHttpsRedirection();
-            }
-
-            foreach (StartupBuilder builder in startupBuilders)
-            {
-                builder.PreviewUseRouting?.Invoke(configuration, environment, app);
-            }
-
-            app.UseRouting();
-
-            foreach (StartupBuilder startupBuilder in startupBuilders)
-            {
-                startupBuilder.PreviewUseAuthentication?.Invoke(configuration, environment, app);
-            }
-
-            app.UseAuthentication();
-
-            foreach (StartupBuilder startupBuilder in startupBuilders)
-            {
-                startupBuilder.PreviewUseAuthorization?.Invoke(configuration, environment, app);
-            }
-
-            app.UseAuthorization();
-
-            foreach (StartupBuilder startupBuilder in startupBuilders)
-            {
-                startupBuilder.PreviewUseEndpoints?.Invoke(configuration, environment, app);
-            }
-
-            app.UseEndpoints(endpoints =>
-            {
-                foreach (StartupBuilder startupBuilder in startupBuilders)
+                AllowCachingResponses = true,
+                Predicate = r => r.Name.Contains("self"),
+                ResponseWriter = async (context, report) =>
                 {
-                    startupBuilder.ConfigureEndpoints?.Invoke(configuration, environment, app, endpoints);
-                }
+                    var result = System.Text.Json.JsonSerializer.Serialize(
+                        new
+                        {
+                            status = report.Status.ToString(),
+                            errors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) }),
+                        });
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result);
+                },
+            });
 
-                endpoints.MapControllers();
+            return app;
+        }
+
+        /// <summary>
+        /// Adds the health check endpoint at the path "/ready" for all checks tagged "services".
+        /// </summary>
+        /// <param name="app">The IApplicationBuilder.</param>
+        /// <param name="path">The path to use for this health check.</param>
+        /// <returns>The updated IApplicationBuilder.</returns>
+        public static IApplicationBuilder UseServiceHealthEndpoint(this IApplicationBuilder app, string path = "/ready")
+        {
+            app.UseHealthChecks(path, new HealthCheckOptions
+            {
+                Predicate = r => r.Tags.Contains("services"),
+                ResponseWriter = async (context, report) =>
+                {
+                    var result = System.Text.Json.JsonSerializer.Serialize(
+                        new
+                        {
+                            status = report.Status.ToString(),
+                            errors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) }),
+                        });
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result);
+                },
             });
 
             return app;

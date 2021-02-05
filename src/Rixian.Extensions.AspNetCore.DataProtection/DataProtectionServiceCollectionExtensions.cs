@@ -3,11 +3,14 @@
 
 namespace Rixian.Extensions.AspNetCore.DataProtection
 {
+    using System;
     using Microsoft.AspNetCore.DataProtection;
-    using Microsoft.Azure.Storage;
-    using Microsoft.Azure.Storage.Blob;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using Rixian.Extensions.Errors;
 
     /// <summary>
     /// Extensions for registering Data Protection services.
@@ -22,10 +25,11 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         /// <param name="blobConnectionString">The Azure Storage connection string.</param>
         /// <param name="keyName">The name of the KeyVault key.</param>
         /// <param name="keyIdentifier">The ID of the KeyVault key.</param>
+        /// <param name="tenantId">The TenantID used to connect to KeyVault.</param>
         /// <param name="clientId">The ClientID used to connect to KeyVault.</param>
         /// <param name="clientSecret">The ClientSecret used to connect to KeyVault.</param>
         /// <returns>The updated Service Collection.</returns>
-        public static IServiceCollection AddFullDataProtection(this IServiceCollection services, string? appDiscriminator, string? blobConnectionString, string? keyName, string? keyIdentifier, string? clientId, string? clientSecret)
+        public static IServiceCollection AddFullDataProtection(this IServiceCollection services, string? appDiscriminator, string? blobConnectionString, string? keyName, Uri? keyIdentifier, string? tenantId, string? clientId, string? clientSecret)
         {
             if (string.IsNullOrWhiteSpace(appDiscriminator))
             {
@@ -42,7 +46,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
                 throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(keyName));
             }
 
-            if (string.IsNullOrWhiteSpace(keyIdentifier))
+            if (keyIdentifier == null)
             {
                 throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(keyIdentifier));
             }
@@ -57,22 +61,13 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
                 throw new System.ArgumentException(Properties.Resources.MissingValueErrorMessage, nameof(clientSecret));
             }
 
-            IDataProtectionBuilder dataProtectionBuilder = services.AddDataProtection(o => o.ApplicationDiscriminator = appDiscriminator);
+            // See: https://docs.microsoft.com/en-us/rest/api/storageservices/Naming-and-Referencing-Containers--Blobs--and-Metadata#container-names
+            var containerName = $"dataprotection-{appDiscriminator}";
 
-            if (CloudStorageAccount.TryParse(blobConnectionString, out CloudStorageAccount storageAccount))
-            {
-                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                var containerName = $"dataprotection-{appDiscriminator}"; // See: https://docs.microsoft.com/en-us/rest/api/storageservices/Naming-and-Referencing-Containers--Blobs--and-Metadata#container-names
-                CloudBlobContainer appContainer = blobClient.GetContainerReference(containerName);
-                _ = appContainer.CreateIfNotExists();
-
-                dataProtectionBuilder = dataProtectionBuilder.PersistKeysToAzureBlobStorage(appContainer, keyName);
-            }
-
-            if (!string.IsNullOrWhiteSpace(keyIdentifier) && !string.IsNullOrWhiteSpace(clientId) && !string.IsNullOrWhiteSpace(clientSecret))
-            {
-                dataProtectionBuilder = dataProtectionBuilder.ProtectKeysWithAzureKeyVault(keyIdentifier, clientId, clientSecret);
-            }
+            IDataProtectionBuilder dataProtectionBuilder = services
+                .AddDataProtection(o => o.ApplicationDiscriminator = appDiscriminator)
+                .PersistKeysToAzureBlobStorage(blobConnectionString, containerName, keyName)
+                .ProtectKeysWithAzureKeyVault(keyIdentifier, new Azure.Identity.ClientSecretCredential(tenantId, clientId, clientSecret));
 
             return services;
         }
@@ -128,6 +123,7 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
                 options.AzureStorage,
                 options.KeyRing.KeyName,
                 options.KeyRing.KeyIdentifier,
+                options.KeyRing.TenantId,
                 options.KeyRing.ClientId,
                 options.KeyRing.ClientSecret);
 

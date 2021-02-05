@@ -1,6 +1,7 @@
 trigger:
   branches:
     include:
+    - main
     - master
     - 'validate/*'
     - 'release/*'
@@ -9,15 +10,23 @@ trigger:
     - doc/
     - '*.md'
     - .vscode/
+    - .github/
+
+parameters:
+- name: includeMacOS
+  displayName: Build on macOS
+  type: boolean
+  default: false # macOS is often bogged down in Azure Pipelines
 
 variables:
   TreatWarningsAsErrors: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   BuildConfiguration: Release
-  BuildPlatform: Any CPU
   codecov_token: f9abfa00-c497-4818-8f4a-a001cb224349
   ci_feed: /e08c98c0-63d6-4dc6-80ca-944e4deaf3d2
   NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
 
 jobs:
 - template: azure-pipelines/build.yml
+  parameters:
+    includeMacOS: ${{ parameters.includeMacOS }}

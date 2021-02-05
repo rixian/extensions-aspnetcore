@@ -3,6 +3,7 @@
 
 namespace Rixian.Extensions.AspNetCore.DataProtection
 {
+    using System;
     using System.Collections.Generic;
     using Rixian.Extensions.Errors;
     using static Rixian.Extensions.Errors.Prelude;
@@ -20,7 +21,12 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         /// <summary>
         /// Gets or sets the key identifier.
         /// </summary>
-        public string? KeyIdentifier { get; set; }
+        public Uri? KeyIdentifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tenant Id used to access KeyVault.
+        /// </summary>
+        public string? TenantId { get; set; }
 
         /// <summary>
         /// Gets or sets the client Id used to access KeyVault.
@@ -38,33 +44,29 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
         /// <returns>An optional error result or nothing.</returns>
         public Result CheckRequiredValues()
         {
-            List<Error>? errors = null;
+            List<Error>? errors = new List<Error>();
 
             if (string.IsNullOrWhiteSpace(this.KeyName))
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.KeyName)));
             }
 
-            if (string.IsNullOrWhiteSpace(this.KeyIdentifier))
+            if (this.KeyIdentifier == null)
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.KeyIdentifier)));
             }
 
             if (string.IsNullOrWhiteSpace(this.ClientId))
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ClientId)));
             }
 
             if (string.IsNullOrWhiteSpace(this.ClientSecret))
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ClientSecret)));
             }
 
-            if (errors != null)
+            if (errors.Count > 0)
             {
                 return ErrorResult(new InvalidConfigurationError
                 {

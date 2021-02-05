@@ -1,21 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <CodeAnalysisRuleSet>..\shipping.ruleset</CodeAnalysisRuleSet>
+    <TargetFramework>net5.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\..\shipping.ruleset</CodeAnalysisRuleSet>
     <Description>Extensions for configuring an Api on Asp.Net Core.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Rixian.Extensions.AspNetCore.DataProtection\Rixian.Extensions.AspNetCore.DataProtection.csproj" />
-    <ProjectReference Include="..\Rixian.Extensions.AspNetCore.OpenIdConnect\Rixian.Extensions.AspNetCore.OpenIdConnect.csproj" />
-    <ProjectReference Include="..\Rixian.Extensions.AspNetCore.StackExchangeRedis\Rixian.Extensions.AspNetCore.StackExchangeRedis.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
-    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
   </ItemGroup>
 
@@ -32,6 +30,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2" />
+    <PackageReference Update="Nerdbank.GitVersioning" Version="3.3.37" />
   </ItemGroup>
 
 </Project>

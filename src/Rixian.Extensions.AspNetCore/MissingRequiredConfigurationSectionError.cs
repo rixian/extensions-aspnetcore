@@ -3,6 +3,7 @@
 
 namespace Rixian.Extensions.AspNetCore
 {
+    using Microsoft.AspNetCore.Routing;
     using Rixian.Extensions.Errors;
 
     /// <summary>
