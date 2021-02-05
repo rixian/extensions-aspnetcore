@@ -16,15 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\version.json = ..\version.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore", "Rixian.Extensions.AspNetCore\Rixian.Extensions.AspNetCore.csproj", "{CD08628B-5864-4412-8A16-6D204D194CF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore", "src\Rixian.Extensions.AspNetCore\Rixian.Extensions.AspNetCore.csproj", "{CD08628B-5864-4412-8A16-6D204D194CF6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Tests", "Rixian.Extensions.AspNetCore.Tests\Rixian.Extensions.AspNetCore.Tests.csproj", "{A3C26E14-C810-4285-9F90-52306DD1A39D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Tests", "test\Rixian.Extensions.AspNetCore.Tests\Rixian.Extensions.AspNetCore.Tests.csproj", "{A3C26E14-C810-4285-9F90-52306DD1A39D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.DataProtection", "Rixian.Extensions.AspNetCore.DataProtection\Rixian.Extensions.AspNetCore.DataProtection.csproj", "{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.DataProtection", "src\Rixian.Extensions.AspNetCore.DataProtection\Rixian.Extensions.AspNetCore.DataProtection.csproj", "{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Api", "Rixian.Extensions.AspNetCore.Api\Rixian.Extensions.AspNetCore.Api.csproj", "{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Api", "src\Rixian.Extensions.AspNetCore.Api\Rixian.Extensions.AspNetCore.Api.csproj", "{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Generators", "Rixian.Extensions.AspNetCore.Generators\Rixian.Extensions.AspNetCore.Generators.csproj", "{8AB137F4-EF30-417B-A75B-5DB23E49B05C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Generators", "src\Rixian.Extensions.AspNetCore.Generators\Rixian.Extensions.AspNetCore.Generators.csproj", "{8AB137F4-EF30-417B-A75B-5DB23E49B05C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

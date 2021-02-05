@@ -48,29 +48,25 @@ namespace Rixian.Extensions.AspNetCore.DataProtection
 
             if (string.IsNullOrWhiteSpace(this.KeyName))
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.KeyName)));
             }
 
             if (this.KeyIdentifier == null)
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.KeyIdentifier)));
             }
 
             if (string.IsNullOrWhiteSpace(this.ClientId))
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ClientId)));
             }
 
             if (string.IsNullOrWhiteSpace(this.ClientSecret))
             {
-                errors ??= new List<Error>();
                 errors.Add(new MissingRequiredConfigurationFieldError(nameof(this.ClientSecret)));
             }
 
-            if (errors != null)
+            if (errors.Count > 0)
             {
                 return ErrorResult(new InvalidConfigurationError
                 {

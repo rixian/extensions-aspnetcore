@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rixian.Extensions.AspNetCore\Rixian.Extensions.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\Rixian.Extensions.AspNetCore\Rixian.Extensions.AspNetCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
