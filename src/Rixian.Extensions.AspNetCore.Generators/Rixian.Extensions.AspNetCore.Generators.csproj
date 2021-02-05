@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <CodeAnalysisRuleSet>..\..\shipping.ruleset</CodeAnalysisRuleSet>
-    <Description>Source GEnerator for creating a configurable Startup class for Asp.Net Core.</Description>
+    <Description>Source Generator for creating a configurable Startup class for Asp.Net Core.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
