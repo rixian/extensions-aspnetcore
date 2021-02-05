@@ -22,7 +22,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <PackageIcon>$(MSBuildThisFileDirectory)nuget-128.png</PackageIcon>
+    <PackageIcon>$(MSBuildThisFileDirectory)icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)nuget-128.png" Pack="true" PackagePath="\"/>
+    <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 </Project>
