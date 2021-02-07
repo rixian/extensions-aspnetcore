@@ -69,10 +69,10 @@ namespace {options.Namespace}
         public GlobalConfig Options {{ get; }}
 
         partial void ConfigureServicesCore(IServiceCollection services);
-        partial void ConfigurePreviewRouting(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger);
-        partial void ConfigurePreviewAuth(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger);
-        partial void ConfigurePreviewEndpoints(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger);
-        partial void ConfigureEndpoints(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger);
+        partial void ConfigurePreviewRouting(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
+        partial void ConfigurePreviewAuth(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
+        partial void ConfigurePreviewEndpoints(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
+        partial void ConfigureEndpoints(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -194,7 +194,7 @@ namespace {options.Namespace}
             }
             else
             {
-                Extensions.Errors.Result isValid = redisOptions.CheckRequiredValues(); // Provides the required null checks.
+                Rixian.Extensions.Errors.Result isValid = redisOptions.CheckRequiredValues(); // Provides the required null checks.
 
                 if (isValid.IsSuccess)
                 {
@@ -235,7 +235,7 @@ namespace {options.Namespace}
             }
             else
             {
-                Extensions.Errors.Result isValid = oauth2Options.CheckRequiredValues(); // Provides the required null checks.
+                Rixian.Extensions.Errors.Result isValid = oauth2Options.CheckRequiredValues(); // Provides the required null checks.
 
                 if (isValid.IsSuccess)
                 {
