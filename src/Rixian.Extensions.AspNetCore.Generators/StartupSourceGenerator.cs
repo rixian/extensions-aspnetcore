@@ -29,8 +29,16 @@ namespace Rixian.Extensions.AspNetCore.Generators
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.EnableRazorPages", out var enableRazorPages);
             context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.EnableOpenIdConnect", out var enableOpenIdConnect);
 
-            NameSyntax? nameSyntax = context.Compilation.SyntaxTrees?.FirstOrDefault()?.GetRoot()?.DescendantNodes()?.OfType<NamespaceDeclarationSyntax>()?.FirstOrDefault()?.Name;
-            string namespaceName = nameSyntax?.NormalizeWhitespace()?.ToFullString() ?? "Rixian.Extensions.AspNetCore";
+            IEnumerable<NamespaceDeclarationSyntax>? namespaces = context.Compilation.SyntaxTrees?
+                .FirstOrDefault()?
+                .GetRoot()?
+                .DescendantNodes()?
+                .OfType<NamespaceDeclarationSyntax>()
+                .Where(n => n
+                    .DescendantNodes()?
+                    .OfType<ClassDeclarationSyntax>()?
+                    .Any(c => string.Equals(c.Identifier.NormalizeWhitespace().ToFullString(), "Program")) ?? false);
+            string namespaceName = namespaces?.SingleOrDefault()?.Name?.NormalizeWhitespace()?.ToFullString() ?? "Rixian.Extensions.AspNetCore";
 
             var options = new StartupOptions
             {
