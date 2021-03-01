@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Rixian.Extensions.Errors" Version="1.0.1" />
+    <PackageReference Include="Rixian.Extensions.Errors" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
