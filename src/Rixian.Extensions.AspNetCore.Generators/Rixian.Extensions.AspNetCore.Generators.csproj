@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <CodeAnalysisRuleSet>..\..\shipping.ruleset</CodeAnalysisRuleSet>
     <Description>Source Generator for creating a configurable Startup class for Asp.Net Core.</Description>
