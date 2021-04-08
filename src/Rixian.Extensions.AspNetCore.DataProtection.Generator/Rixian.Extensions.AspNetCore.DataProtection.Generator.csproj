@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Source Generator for creating a configurable Startup class for Asp.Net Core.</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+
+    <ItemGroup>
+    <!-- Package the generator in the analyzer directory of the nuget package -->
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.DataProtection.Blobs" Version="1.2.0" />
+    <PackageReference Include="Azure.Extensions.AspNetCore.DataProtection.Keys" Version="1.0.2" />
+    <PackageReference Include="Rixian.Extensions.Errors" Version="1.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="source\ApiConfig.cs" />
+    <Compile Remove="source\ApplicationBuilderExtensions.cs" />
+    <Compile Remove="source\AuthInfoHelper.cs" />
+    <Compile Remove="source\DataProtectionConfig.cs" />
+    <Compile Remove="source\DataProtectionServiceCollectionExtensions.cs" />
+    <Compile Remove="source\InvalidConfigurationError.cs" />
+    <Compile Remove="source\KeyRingConfig.cs" />
+    <Compile Remove="source\MissingRequiredConfigurationFieldError.cs" />
+    <Compile Remove="source\MissingRequiredConfigurationSectionError.cs" />
+    <Compile Remove="source\OAuth2Config.cs" />
+    <Compile Remove="source\OpenIdConnectConfig.cs" />
+    <Compile Remove="source\RedisConfig.cs" />
+    <Compile Remove="source\SameSiteCookiesServiceCollectionExtensions.cs" />
+    <Compile Remove="source\ServiceCollectionExtensions.cs" />
+    <Compile Remove="source\SlugifyParameterTransformer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="source\ApiConfig.cs" />
+    <EmbeddedResource Include="source\ApplicationBuilderExtensions.cs" />
+    <EmbeddedResource Include="source\DataProtectionConfig.cs" />
+    <EmbeddedResource Include="source\DataProtectionServiceCollectionExtensions.cs" />
+    <EmbeddedResource Include="source\InvalidConfigurationError.cs" />
+    <EmbeddedResource Include="source\OpenIdConnectConfig.cs" />
+    <EmbeddedResource Include="source\KeyRingConfig.cs" />
+    <EmbeddedResource Include="source\MissingRequiredConfigurationFieldError.cs" />
+    <EmbeddedResource Include="source\MissingRequiredConfigurationSectionError.cs" />
+    <EmbeddedResource Include="source\OAuth2Config.cs" />
+    <EmbeddedResource Include="source\AuthInfoHelper.cs" />
+    <EmbeddedResource Include="source\RedisConfig.cs" />
+    <EmbeddedResource Include="source\SameSiteCookiesServiceCollectionExtensions.cs" />
+    <EmbeddedResource Include="source\ServiceCollectionExtensions.cs" />
+    <EmbeddedResource Include="source\SlugifyParameterTransformer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

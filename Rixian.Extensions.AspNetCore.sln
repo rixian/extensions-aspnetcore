@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29322.22
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1CE9670B-D5FF-46A7-9D00-24E70E6ED48B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{1CE9670B-D5FF-46A7-9D00-24E70E6ED48B}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
 		Directory.Build.props = Directory.Build.props
@@ -25,6 +25,22 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Api", "src\Rixian.Extensions.AspNetCore.Api\Rixian.Extensions.AspNetCore.Api.csproj", "{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.Generators", "src\Rixian.Extensions.AspNetCore.Generators\Rixian.Extensions.AspNetCore.Generators.csproj", "{8AB137F4-EF30-417B-A75B-5DB23E49B05C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspnetcore", "aspnetcore", "{3624D394-1100-4CA2-A461-AD000D2D32E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.AspNetCore.ApplicationInsights", "src\Rixian.Extensions.AspNetCore.ApplicationInsights\Rixian.Extensions.AspNetCore.ApplicationInsights.csproj", "{451CA44B-917E-4C65-8C61-F95BE46295AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{7C76B387-B423-4704-9656-020315AC72B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workers", "workers", "{1C67E58F-20D8-4E07-AF44-D47597831718}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.ApplicationInsights", "src\Rixian.Extensions.ApplicationInsights\Rixian.Extensions.ApplicationInsights.csproj", "{77841BBC-B103-4047-83FD-54773EA8BBFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.ApplicationInsights.Kubernetes", "src\Rixian.Extensions.ApplicationInsights.Kubernetes\Rixian.Extensions.ApplicationInsights.Kubernetes.csproj", "{E6E360ED-32FA-49B5-8002-EF5C40878100}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.ApplicationInsights.WorkerService", "src\Rixian.Extensions.ApplicationInsights.WorkerService\Rixian.Extensions.ApplicationInsights.WorkerService.csproj", "{BDCFAC6A-7646-4F14-A54A-B9347A710D06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rixian.Extensions.Dapr", "src\Rixian.Extensions.Dapr\Rixian.Extensions.Dapr.csproj", "{C143122C-5C55-4EF0-86BB-C4CF3D0A5897}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,9 +68,40 @@ Global
 		{8AB137F4-EF30-417B-A75B-5DB23E49B05C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB137F4-EF30-417B-A75B-5DB23E49B05C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB137F4-EF30-417B-A75B-5DB23E49B05C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451CA44B-917E-4C65-8C61-F95BE46295AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451CA44B-917E-4C65-8C61-F95BE46295AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451CA44B-917E-4C65-8C61-F95BE46295AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451CA44B-917E-4C65-8C61-F95BE46295AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77841BBC-B103-4047-83FD-54773EA8BBFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77841BBC-B103-4047-83FD-54773EA8BBFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77841BBC-B103-4047-83FD-54773EA8BBFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77841BBC-B103-4047-83FD-54773EA8BBFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E360ED-32FA-49B5-8002-EF5C40878100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E360ED-32FA-49B5-8002-EF5C40878100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E360ED-32FA-49B5-8002-EF5C40878100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E360ED-32FA-49B5-8002-EF5C40878100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDCFAC6A-7646-4F14-A54A-B9347A710D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDCFAC6A-7646-4F14-A54A-B9347A710D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDCFAC6A-7646-4F14-A54A-B9347A710D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDCFAC6A-7646-4F14-A54A-B9347A710D06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C143122C-5C55-4EF0-86BB-C4CF3D0A5897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C143122C-5C55-4EF0-86BB-C4CF3D0A5897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C143122C-5C55-4EF0-86BB-C4CF3D0A5897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C143122C-5C55-4EF0-86BB-C4CF3D0A5897}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CD08628B-5864-4412-8A16-6D204D194CF6} = {3624D394-1100-4CA2-A461-AD000D2D32E1}
+		{2A0B1D5A-1852-484F-AAD7-29E6EFAE29EF} = {3624D394-1100-4CA2-A461-AD000D2D32E1}
+		{4B2B0EB1-0C2E-4CCB-BE8D-0C2D66D1D67A} = {3624D394-1100-4CA2-A461-AD000D2D32E1}
+		{8AB137F4-EF30-417B-A75B-5DB23E49B05C} = {3624D394-1100-4CA2-A461-AD000D2D32E1}
+		{451CA44B-917E-4C65-8C61-F95BE46295AA} = {3624D394-1100-4CA2-A461-AD000D2D32E1}
+		{77841BBC-B103-4047-83FD-54773EA8BBFB} = {7C76B387-B423-4704-9656-020315AC72B2}
+		{E6E360ED-32FA-49B5-8002-EF5C40878100} = {7C76B387-B423-4704-9656-020315AC72B2}
+		{BDCFAC6A-7646-4F14-A54A-B9347A710D06} = {1C67E58F-20D8-4E07-AF44-D47597831718}
+		{C143122C-5C55-4EF0-86BB-C4CF3D0A5897} = {7C76B387-B423-4704-9656-020315AC72B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3944F6A-384B-4B0F-B93F-3BD513DC57BD}
