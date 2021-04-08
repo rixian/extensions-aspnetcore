@@ -33,7 +33,7 @@ namespace Rixian.Extensions.AspNetCore.Api
         public void EnsureRequiredValues()
         {
             Result isValid = this.CheckRequiredValues();
-            if (isValid.IsFail)
+            if (isValid.IsFail && isValid.Error is object)
             {
                 throw new ErrorException(isValid.Error);
             }
