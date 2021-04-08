@@ -4,9 +4,7 @@
 namespace Microsoft.Extensions.DependencyInjection
 {
     using Microsoft.ApplicationInsights.Extensibility;
-    using Rixian.Extensions.ApplicationInsights;
     using Rixian.Extensions.ApplicationInsights.Kubernetes;
-    using Rixian.Extensions.AspNetCore.ApplicationInsights;
 
     /// <summary>
     /// Basic extensions for IServiceCollection for AspNet Core.
