@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services">The IServiceCollection.</param>
         /// <param name="config">The Application Insights Configuration.</param>
         /// <returns>The updated IServiceCollection.</returns>
-        public static IServiceCollection AddApplicationInsightsForKubernetes(IServiceCollection services, K8sApplicationInsightsConfig config)
+        public static IServiceCollection AddApplicationInsightsForKubernetes(this IServiceCollection services, K8sApplicationInsightsConfig config)
         {
             services.Configure<K8sApplicationInsightsConfig>(o =>
             {

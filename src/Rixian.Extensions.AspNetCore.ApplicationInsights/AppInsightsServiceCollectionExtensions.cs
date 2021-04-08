@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services">The IServiceCollection.</param>
         /// <param name="config">The Application Insights Configuration.</param>
         /// <returns>The updated IServiceCollection.</returns>
-        public static IServiceCollection AddApplicationInsights(IServiceCollection services, ApplicationInsightsConfig config)
+        public static IServiceCollection AddApplicationInsights(this IServiceCollection services, ApplicationInsightsConfig config)
         {
             services.Configure<ApplicationInsightsConfig>(o =>
             {
