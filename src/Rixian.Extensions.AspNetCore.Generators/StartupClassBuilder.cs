@@ -24,7 +24,7 @@ namespace Rixian.Extensions.AspNetCore.Generators
             sb.AppendLine($@"// Copyright (c) Rixian. All rights reserved.
 // Licensed under the Apache License, Version 2.0 license.
 
-namespace Rixian.Extensions.AspNetCore
+namespace {options.Namespace}
 {{
     using IdentityModel;
     using Microsoft.AspNetCore.Authentication;
@@ -45,6 +45,7 @@ namespace Rixian.Extensions.AspNetCore
     using Microsoft.IdentityModel.Logging;
     using Microsoft.IdentityModel.Protocols.OpenIdConnect;
     using Microsoft.IdentityModel.Tokens;
+    using Rixian.Extensions.AspNetCore;
     using Rixian.Extensions.Errors;
     using System;
     using System.Linq;
@@ -52,9 +53,9 @@ namespace Rixian.Extensions.AspNetCore
     using System.Text.Json;
     using System.Text.Json.Serialization;
 
-    public partial class BaseStartup
+    public partial class Startup
     {{
-        public BaseStartup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {{
             Configuration = configuration;
             Environment = environment;
@@ -66,6 +67,12 @@ namespace Rixian.Extensions.AspNetCore
         public IConfiguration Configuration {{ get; }}
         public IWebHostEnvironment Environment {{ get; }}
         public GlobalConfig Options {{ get; }}
+
+        partial void ConfigureServicesCore(IServiceCollection services);
+        partial void ConfigurePreviewRouting(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
+        partial void ConfigurePreviewAuth(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
+        partial void ConfigurePreviewEndpoints(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
+        partial void ConfigureEndpoints(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger);
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -80,7 +87,7 @@ namespace Rixian.Extensions.AspNetCore
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
             }});
-            
+
             {(options.EnableWebApi == false ? string.Empty : @"
             Rixian.Extensions.AspNetCore.ApiConfig? apiOptions = this.Options.Api;
             DateTime? defaultVersion = null;
@@ -187,7 +194,7 @@ namespace Rixian.Extensions.AspNetCore
             }
             else
             {
-                Extensions.Errors.Result isValid = redisOptions.CheckRequiredValues(); // Provides the required null checks.
+                Rixian.Extensions.Errors.Result isValid = redisOptions.CheckRequiredValues(); // Provides the required null checks.
 
                 if (isValid.IsSuccess)
                 {
@@ -228,7 +235,7 @@ namespace Rixian.Extensions.AspNetCore
             }
             else
             {
-                Extensions.Errors.Result isValid = oauth2Options.CheckRequiredValues(); // Provides the required null checks.
+                Rixian.Extensions.Errors.Result isValid = oauth2Options.CheckRequiredValues(); // Provides the required null checks.
 
                 if (isValid.IsSuccess)
                 {
@@ -248,7 +255,7 @@ namespace Rixian.Extensions.AspNetCore
                             o.ForwardDefaultSelector = context =>
                             {
                                 var header = context.Request.Headers[""Authorization""].FirstOrDefault();
-                                
+
                                 if (header == null)
                                     return null;
 
@@ -340,10 +347,11 @@ namespace Rixian.Extensions.AspNetCore
                 });
             // ===============")}
 
+            ConfigureServicesCore(services);
         }}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {{
             if (env.IsDevelopment() == false)
             {{
@@ -375,9 +383,12 @@ namespace Rixian.Extensions.AspNetCore
             {(options.EnableRazorPages == false ? string.Empty : @"
             app.UseStaticFiles();")}
 
+            ConfigurePreviewRouting(app, env, logger);
             app.UseRouting();
 
             app.UseCors(""AllowAllOrigins"");
+
+            ConfigurePreviewAuth(app, env, logger);
             app.UseAuthentication();
 
             {(options.EnableOAuth2 == false && options.EnableOpenIdConnect == false ? string.Empty : @"
@@ -414,12 +425,15 @@ namespace Rixian.Extensions.AspNetCore
                 }},
             }});
 
+            ConfigurePreviewEndpoints(app, env, logger);
             app.UseEndpoints(endpoints =>
             {{
                 endpoints.MapControllers();
 
             {(options.EnableRazorPages == false ? string.Empty : @"
                 endpoints.MapRazorPages();")}
+
+                ConfigureEndpoints(app, env, logger);
             }});
         }}
     }}

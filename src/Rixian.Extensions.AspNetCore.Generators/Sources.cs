@@ -14,9 +14,16 @@ namespace Rixian.Extensions.AspNetCore.Generators
         public static string GetResourceText(string name)
         {
             Assembly? assembly = typeof(Rixian.Extensions.AspNetCore.Generators.Sources).GetTypeInfo().Assembly;
-            using Stream resource = assembly.GetManifestResourceStream(name);
-            using StreamReader sr = new StreamReader(resource);
-            return sr.ReadToEnd();
+            using Stream? resource = assembly.GetManifestResourceStream(name);
+            if (resource != null)
+            {
+                using StreamReader sr = new StreamReader(resource);
+                return sr.ReadToEnd();
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         public static string DataProtectionConfig() => GetResourceText("Rixian.Extensions.AspNetCore.Generators.source.DataProtectionConfig.cs");
