@@ -3,14 +3,7 @@
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    using System.Text.Json;
-    using System.Text.Json.Serialization;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.HttpOverrides;
-    using Microsoft.AspNetCore.Mvc;
     using Rixian.Extensions.ApplicationInsights;
-    using Rixian.Extensions.AspNetCore.ApplicationInsights;
 
     /// <summary>
     /// Basic extensions for IServiceCollection for AspNet Core.
